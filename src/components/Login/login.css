@@ -1,27 +1,25 @@
-.header{
-    background: #10239e
+.header {
+  background: #10239e;
 }
 
-.title-header{
-    color:white;
-
+.title-header {
+  color: white;
 }
-.content{
-    background: white
-}
-
-.login-title
-{
-    padding: 100px;
-    margin-top: 200px
+.content {
+  background: white;
 }
 
-.input-login
-{
-    width : 400px;
-    height: 50px;
+.login-title {
+  padding: 100px;
+  margin-top: 200px;
 }
 
-#login-pic{
-    height: 101%;
+.input-login {
+  width: 400px;
+  height: 50px;
+}
+
+#login-pic {
+  height: 100%;
+  width: 100%;
 }
