@@ -1,6 +1,9 @@
+const BASEURL="http://localhost:5000"
+
+
 export const signup = user => {
     console.log(user)
-    fetch("api/users", {
+    fetch(BASEURL+"/api/users", {
       method: "POST",
       body: JSON.stringify(user),
       headers: {
@@ -10,7 +13,7 @@ export const signup = user => {
 };
   
 export const login = user => (
-    fetch("api/session", {
+    fetch(BASEURL+"/api/session", {
       method: "POST",
       body: JSON.stringify(user),
       headers: {
