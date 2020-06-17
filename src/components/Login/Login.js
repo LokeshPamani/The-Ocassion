@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Layout, Row, Col, Divider, Typography,Space,Input, Tooltip, Button } from 'antd';
 import React, { Component } from 'react'
 import { InfoCircleOutlined, UserOutlined } from '@ant-design/icons';
@@ -35,13 +36,50 @@ class Login extends Component {
             username : val.target.value
         })
     }
+=======
+import {
+  Layout,
+  Row,
+  Col,
+  Divider,
+  Typography,
+  Space,
+  Input,
+  Tooltip,
+  Button,
+} from "antd";
+import React, { Component } from "react";
+import { InfoCircleOutlined, UserOutlined } from "@ant-design/icons";
 
-    handlePasswordInput=val=>{
-        this.setState({
-            password : val.target.value
-        })
-    }
+import loginpic from "../../Photos/loginpic.png";
+import "./login.css";
+const { Header, Content } = Layout;
+const { Title } = Typography;
 
+class Login extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      username: "",
+      password: "",
+    };
+  }
+
+  handleUsernameInput = (val) => {
+    this.setState({
+      username: val.target.value,
+    });
+  };
+>>>>>>> d09dbe16b1f62790f8b9d49e17f6a52788b68ed3
+
+  handlePasswordInput = (val) => {
+    this.setState({
+      password: val.target.value,
+    });
+  };
+
+<<<<<<< HEAD
     handleLogin=()=>{
         const user = {
             email: this.state.username,
@@ -100,6 +138,68 @@ class Login extends Component {
             </div>
         )
     }
+=======
+  handleLogin = () => {
+    console.log("----state", this.state);
+  };
+
+  render() {
+    return (
+      <div>
+        <Layout>
+          <Header className="header">
+            <Title
+              className="title-header"
+              style={{ color: "white", padding: "15px" }}
+              level={3}
+            >
+              The Occasion
+            </Title>
+          </Header>
+          <Content className="content">
+            <Row>
+              <Col span={11}>
+                <img id="login-pic" src={loginpic} alt="Something." />
+              </Col>
+              <Divider type="vertical" style={{ height: "100%" }} />
+              <Col className="login-title" span={11}>
+                <Title level={3}>LogIn</Title>
+                <Space direction="vertical">
+                  <Input
+                    className="input-login"
+                    onChange={(val) => this.handleUsernameInput(val)}
+                    placeholder="Enter your username"
+                    prefix={<UserOutlined className="site-form-item-icon" />}
+                    suffix={
+                      <Tooltip title="Extra information">
+                        <InfoCircleOutlined
+                          style={{ color: "rgba(0,0,0,.45)" }}
+                        />
+                      </Tooltip>
+                    }
+                  />
+                  <Input.Password
+                    onChange={(val) => this.handlePasswordInput(val)}
+                    className="input-login"
+                    placeholder="input password"
+                  />
+                  <Button
+                    onClick={this.handleLogin}
+                    className="header"
+                    type="primary"
+                    block
+                  >
+                    LogIn
+                  </Button>
+                </Space>
+              </Col>
+            </Row>
+          </Content>
+        </Layout>
+      </div>
+    );
+  }
+>>>>>>> d09dbe16b1f62790f8b9d49e17f6a52788b68ed3
 }
 
-export default Login
+export default Login;
