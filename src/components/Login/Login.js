@@ -1,13 +1,22 @@
 import { Layout, Row, Col, Divider, Typography,Space,Input, Tooltip, Button } from 'antd';
 import React, { Component } from 'react'
 import { InfoCircleOutlined, UserOutlined } from '@ant-design/icons';
-
+import { Link } from "react-router-dom";
 import loginpic from '../../Photos/loginpic.png'
+
+import { login } from "../../Redux/actions/Session";
+
 import './login.css';
 const { Header,  Content } = Layout;
 const { Title } = Typography;
 
-
+const mapStateToProps = ({ errors }) => ({
+    errors
+  });
+  
+const mapDispatchToProps = dispatch => ({
+    login: user => dispatch(login(user))
+  });
 
 class Login extends Component {
     constructor(props) {
@@ -18,6 +27,8 @@ class Login extends Component {
              password : ''
         }
     }
+
+    
     
     handleUsernameInput=val=>{
         this.setState({
@@ -32,7 +43,11 @@ class Login extends Component {
     }
 
     handleLogin=()=>{
-        console.log('----state',this.state)
+        const user = {
+            email: this.state.username,
+            password: this.state.password,
+          };
+          this.props.login(user);
     }
 
     render() {
@@ -74,6 +89,8 @@ class Login extends Component {
                                     block>
                                         LogIn
                                     </Button>
+
+                                    <Link to="/signup">Signup</Link>
                             </Space>
                         </Col>
                     </Row>
