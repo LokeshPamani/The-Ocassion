@@ -1,7 +1,8 @@
-const BASEURL="http://localhost:5000"
+const BASEURL="http://localhost:5001"
 
 
 export const signup = user => {
+    
     console.log(user)
     fetch(BASEURL+"/api/users", {
       method: "POST",
@@ -25,3 +26,15 @@ export const login = user => (
 export const logout = () => (
     fetch("api/session", { method: "DELETE" })
   );
+
+export const checkLoggedIn = async preloadedState => {
+    const response = await fetch('/api/session');
+    const { user } = await response.json();
+     preloadedState = {};
+    if (user) {
+      preloadedState = {
+        session: user
+      };
+    }
+    return preloadedState;
+  };

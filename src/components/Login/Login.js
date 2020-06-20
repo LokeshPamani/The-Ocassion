@@ -13,7 +13,7 @@ const { Title } = Typography;
 const mapStateToProps = ({ errors }) => ({
     errors
   });
-  
+
 const mapDispatchToProps = dispatch => ({
     login: user => dispatch(login(user))
   });
@@ -21,15 +21,15 @@ const mapDispatchToProps = dispatch => ({
 class Login extends Component {
     constructor(props) {
         super(props)
-    
+
         this.state = {
              username: '',
              password : ''
         }
     }
 
-    
-    
+
+
     handleUsernameInput=val=>{
         this.setState({
             username : val.target.value
@@ -47,6 +47,7 @@ class Login extends Component {
             email: this.state.username,
             password: this.state.password,
           };
+          
           this.props.login(user);
     }
 
@@ -77,15 +78,15 @@ class Login extends Component {
                                         </Tooltip>
                                     }
                                     />
-                                    <Input.Password 
+                                    <Input.Password
                                         onChange={val=>this.handlePasswordInput(val)}
                                         className = "input-login"
-                                        placeholder="input password" 
+                                        placeholder="input password"
                                     />
-                                    <Button 
+                                    <Button
                                     onClick={this.handleLogin}
-                                    className='header' 
-                                    type="primary" 
+                                    className='header'
+                                    type="primary"
                                     block>
                                         LogIn
                                     </Button>
@@ -95,7 +96,7 @@ class Login extends Component {
                         </Col>
                     </Row>
                     </Content>
-                    
+
                 </Layout>
             </div>
         )
