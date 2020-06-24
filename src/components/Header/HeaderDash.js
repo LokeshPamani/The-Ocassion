@@ -1,21 +1,21 @@
 import React,{Component} from 'react';
 import 'antd/dist/antd.css';
 import './headerdash.css';
-import { Layout, Menu, Breadcrumb,Typography,Badge,Popover   } from 'antd';
+import { Layout, Menu,Typography,Badge,Popover ,Avatar  } from 'antd';
 import { UserOutlined, LaptopOutlined, NotificationOutlined ,BellFilled } from '@ant-design/icons';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from 'react-router-dom'
-import Login from '../Login/Login'
-import Signup from '../Signup'
-import Welcome from '../welcome'
-import Dashboard from '../Dashboard'
-import CustomCalendar from '../Calendar.js/CustomCalendar';
+// import {
+//   BrowserRouter as Router,
+//   Switch,
+//   Route,
+//   Link
+// } from 'react-router-dom'
+// import Login from '../Login/Login'
+// import Signup from '../Signup'
+// import Welcome from '../welcome'
+// import Dashboard from '../Dashboard'
+// import CustomCalendar from '../Calendar.js/CustomCalendar';
 
-import { Row, Col ,Card,Avatar} from 'antd';
+import Home from '../Home';
 
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
@@ -98,15 +98,7 @@ class HeaderDash extends Component {
                   use it later-------------------------------------
               </Switch>
               </Router> */}
-              <Row gutter={16} style={{padding:"10px",background:"#ececec",height:"100%"}}>
-              <Col span={18}><CustomCalendar /></Col>
-              <Col span={6}><Card title="Statistics" bordered={false} style={{ width: 340 }}>
-              <p>Card content</p>
-              <p>Card content</p>
-              <p>Card content</p>
-            </Card>
-            </Col>
-            </Row>
+              <Home />
               
               </Content>
             </Layout>
