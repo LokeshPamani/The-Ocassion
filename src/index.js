@@ -5,6 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import ConfigureStore from './Redux/store/store';
 import { Provider } from "react-redux";
+import { checkLoggedIn } from "./util/Session";
 
 let preloadedState = {};
 const store = ConfigureStore(preloadedState);

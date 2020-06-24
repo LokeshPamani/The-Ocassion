@@ -10,21 +10,24 @@ import Login from './components/Login/Login'
 import Signup from './components/Signup'
 import Welcome from './components/welcome'
 import Dashboard from './components/Dashboard'
+import HeaderDash from './components/Header/HeaderDash';
 
 function App() {
   return (
-    <div className="App">
-      <Router>
-        <Switch>
-        <Route exact path="/" component={Welcome} />
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
-        <Route path="/dashboard" component={Dashboard} />
-          {/* <Route exact path='/login' component={Login} /> */}
-          {/* <Login /> */}
-        </Switch>
-      </Router>
-    </div>
+    // <div className="App">
+      
+    //   <Router>
+    //     <Switch>
+    //     <Route exact path="/" component={Welcome} />
+    //     <Route path="/login" component={Login} />
+    //     <Route path="/signup" component={Signup} />
+    //     <Route path="/dashboard" component={Dashboard} />
+    //       {/* <Route exact path='/login' component={Login} /> */}
+    //       {/* <Login /> */}
+    //     </Switch>
+    //   </Router>
+    // </div>
+    <HeaderDash />
   );
 }
 

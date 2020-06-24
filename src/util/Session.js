@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 const BASEURL="http://localhost:5001"
 
 
@@ -23,9 +25,13 @@ export const login = user => (
     })
   );
 
-export const logout = () => (
-    fetch("api/session", { method: "DELETE" })
-  );
+export const logout = () => {
+  //  fetch(BASEURL+"/api/session", { method: "DELETE" ,credentials: 'include'})
+  axios.defaults.withCredentials = true;
+  //console.log('the url is',url,wmc_tokens)
+  console.log('before the axios')
+ return (axios.delete(BASEURL+"/api/session"))
+};
 
 export const checkLoggedIn = async preloadedState => {
     const response = await fetch('/api/session');
