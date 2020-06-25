@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import 'antd/dist/antd.css';
 import './headerdash.css';
 import { Layout, Menu,Typography,Badge,Popover ,Avatar  } from 'antd';
-import { UserOutlined, LaptopOutlined, NotificationOutlined ,BellFilled } from '@ant-design/icons';
+import { UserOutlined, LaptopOutlined, NotificationOutlined ,BellFilled ,HomeOutlined} from '@ant-design/icons';
 // import {
 //   BrowserRouter as Router,
 //   Switch,
@@ -59,7 +59,7 @@ class HeaderDash extends Component {
                 style={{ height: '100%', borderRight: 0 }}
               >
                 
-                  <Menu.Item key="1" icon={<LaptopOutlined />}>option1</Menu.Item>
+                  <Menu.Item key="1" icon={<HomeOutlined />}>Home</Menu.Item>
                   <Menu.Item key="2">option2</Menu.Item>
                   <Menu.Item key="3">option3</Menu.Item>
                   <Menu.Item key="4">option4</Menu.Item>
