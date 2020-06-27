@@ -1,7 +1,7 @@
 import { Layout, Row, Col, Divider, Typography,Space,Input, Tooltip, Button } from 'antd';
 import React, { Component } from 'react'
 import { InfoCircleOutlined, UserOutlined } from '@ant-design/icons';
-import { Link } from "react-router-dom";
+import { Link,Redirect } from "react-router-dom";
 import loginpic from '../../Photos/loginpic.png'
 import { connect } from "react-redux";
 import { login } from "../../Redux/actions/Session";
@@ -49,6 +49,7 @@ class Login extends Component {
           };
           
           this.props.login(user);
+          return <Redirect to='/' />
     }
 
     render() {

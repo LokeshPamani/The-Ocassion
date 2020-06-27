@@ -1,6 +1,6 @@
 import * as apiUtil from '../../util/Session';
 import { receiveErrors } from "./Errors";
-
+import { Redirect } from 'react-router-dom'
 export const RECEIVE_CURRENT_USER = "RECEIVE_CURRENT_USER";
 export const LOGOUT_CURRENT_USER = "LOGOUT_CURRENT_USER";
 
@@ -20,6 +20,7 @@ export const login = user => async dispatch => {
     if (response.ok) {
         
       return dispatch(receiveCurrentUser(data));
+      
     }
     return dispatch(receiveErrors(data));
   };

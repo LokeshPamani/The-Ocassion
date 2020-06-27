@@ -3,12 +3,12 @@ import 'antd/dist/antd.css';
 import './headerdash.css';
 import { Layout, Menu,Typography,Badge,Popover ,Avatar  } from 'antd';
 import { UserOutlined, LaptopOutlined, NotificationOutlined ,BellFilled ,HomeOutlined} from '@ant-design/icons';
-// import {
-//   BrowserRouter as Router,
-//   Switch,
-//   Route,
-//   Link
-// } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from 'react-router-dom'
 // import Login from '../Login/Login'
 // import Signup from '../Signup'
 // import Welcome from '../welcome'
@@ -98,7 +98,12 @@ class HeaderDash extends Component {
                   use it later-------------------------------------
               </Switch>
               </Router> */}
-              <Home />
+              <Switch>
+              <Route path="/home" component={Home} />
+              <Route path="/" exact  component={Home} />
+              <Route path="/more" compoent={()=><div>lookesh</div>} />
+              </Switch>
+              {/* <Home /> */}
               
               </Content>
             </Layout>
