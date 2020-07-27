@@ -1,8 +1,19 @@
 import React, { Component } from 'react'
 import { Calendar, Badge } from 'antd';
 import { element } from 'prop-types';
-
+import Model from './CustomModel'
 export class CustomCalendar extends Component {
+
+      constructor(props) {
+        super(props)
+      
+        this.state = {
+           showForm : false,
+           dateSelected : ''
+        }
+      }
+      
+
 
     getListData=(value)=>{
         let listData;
@@ -69,10 +80,25 @@ export class CustomCalendar extends Component {
         ) : null;
       }
 
+      onClose=()=>{
+          this.setState({
+            showForm:false,
+            dateSelected:''
+          })
+      }
+
+      onSelect = value => {
+        this.setState({
+          showForm : true,
+          dateSelected : value
+        })
+        //console.log(value,'the valudis is',  `${value && value.format('YYYY-MM-DD')}`)
+      };
     render() {
         return (
             <div>
-                <Calendar dateCellRender={this.dateCellRender} monthCellRender={this.monthCellRender} />
+                <Calendar dateCellRender={this.dateCellRender} monthCellRender={this.monthCellRender} onSelect={this.onSelect}/>
+                {this.state.showForm && <Model date={this.state.dateSelected} onClose={this.onClose}/>}
             </div>
         )
     }
