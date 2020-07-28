@@ -26,13 +26,13 @@ class Home extends Component {
                 <Col span={18}><CustomCalendar /></Col>
                 <Col span={6}>
                     <Row>
-                    <Card title="Notes" bordered={false} style={{ width: 350,height : "370px" }}>
+                    <Card title="Notes" bordered={false} style={{ width: '100%',height : "370px" }}>
                         <Paragraph editable={{ onChange: this.onChange }}>{this.state.Notes}</Paragraph>
                     </Card>
                     </Row>
                     <br></br>
                     <Row>
-                        <Card title="Statistics in Month" bordered={false} style={{ width: 350 }}>
+                        <Card title="Statistics in Month" bordered={false} style={{ width: '100%' }}>
                         <p><strong>Booked</strong> - 5</p>
                         <p><strong>Available</strong> - 17</p>
                         <p><strong>Provisinal Bookings</strong> - 17</p>
