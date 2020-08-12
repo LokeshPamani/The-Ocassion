@@ -15,14 +15,33 @@ const logoutCurrentUser = () => ({
 
 
 export const login = user => async dispatch => {
-    const response = await apiUtil.login(user);
-    const data = await response.json();
-    if (response.ok) {
-        
-      return dispatch(receiveCurrentUser(data));
+  apiUtil.login(user).then(response=>{
+    console.log(response)
+    if (response.statusText=== "OK") {  
+      return dispatch(receiveCurrentUser(response.data));
       
     }
-    return dispatch(receiveErrors(data));
+  }).catch(err=>{
+    console.log('error comes',err.response.data)
+    return dispatch(receiveErrors(err.response.data));
+  })
+  // let data,response;
+  // try{
+  //   response = await apiUtil.login(user);
+  //   data= response.data
+  // }
+  // catch(err){
+  //   data=err
+  //   console.log(data)
+  // }
+  //   //const data = await response.json();
+    
+  //   if (response.ok) {
+        
+  //     return dispatch(receiveCurrentUser(data));
+      
+  //   }
+  //   return dispatch(receiveErrors(data));
   };
   
 export const signup = user => async dispatch => {

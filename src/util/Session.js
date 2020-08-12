@@ -1,7 +1,11 @@
 import axios from 'axios'
 
 const BASEURL="http://localhost:5001"
-
+const options = {
+  headers: {
+         "Content-Type": "application/json"
+       }}
+axios.defaults.withCredentials = true;
 
 export const signup = user => {
     
@@ -16,14 +20,15 @@ export const signup = user => {
 };
   
 export const login = user => (
-    fetch(BASEURL+"/api/session", {
-      method: "POST",
-      body: JSON.stringify(user),
-      credentials: 'include',
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
+    // fetch(BASEURL+"/api/session", {
+    //   method: "POST",
+    //   body: JSON.stringify(user),
+    //   credentials: 'include',
+    //   headers: {
+    //     "Content-Type": "application/json"
+    //   }
+    // })
+    axios.post( BASEURL+"/api/session",JSON.stringify(user),options)
   );
 
 export const logout = () => {

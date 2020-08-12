@@ -49,7 +49,7 @@ export class CustomCalendar extends Component {
 
     dateCellRender=(value)=>{
         const listData = this.getListData(value);
-        console.log(listData);
+        
         return (
         //   <ul className="events">
         //     {listData.map(item => (
@@ -88,17 +88,19 @@ export class CustomCalendar extends Component {
       }
 
       onSelect = value => {
+        
         this.setState({
           showForm : true,
           dateSelected : value
         })
         //console.log(value,'the valudis is',  `${value && value.format('YYYY-MM-DD')}`)
+        console.log('in the onselect ', this.state.showForm)
       };
     render() {
         return (
             <div>
                 <Calendar dateCellRender={this.dateCellRender} monthCellRender={this.monthCellRender} onSelect={this.onSelect}/>
-                {this.state.showForm && <Model date={this.state.dateSelected} onClose={this.onClose}/>}
+                {this.state.showForm && <Model date={this.state.dateSelected} onClose={this.onClose}/> }
             </div>
         )
     }
