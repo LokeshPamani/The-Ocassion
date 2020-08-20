@@ -2,7 +2,7 @@ import React, { useState,useEffect } from 'react';
 import {  Modal, Form, Input, Radio ,Select , DatePicker,Button, } from 'antd';
 import moment from 'moment';
 import { Spin, Alert } from 'antd';
-import {bookingStatus,newBookings} from '../../APIS/BookingsAPI/Booking'
+import {bookingStatus,newBookings, getBookingByBookingID} from '../../APIS/BookingsAPI/Booking'
 import {success,openNotification} from '../NotificationMessage/NotificationMessage'
 import './CustomModel.css'
 
@@ -19,17 +19,37 @@ const prefixSelector = (
   </Form.Item>
 );
 
+let isBooked ;
+let bookingId;
 
-
-const CollectionCreateForm = ({ visible, onCreate, onCancel,date, loading, setState, state, modelload,setModelload, isbooked }) => {
+const CollectionCreateForm = ({  onCreate, onCancel,date, loading, setState, state, modelload, isbooked, form }) => {
+  useEffect(() => {
+    form.setFieldsValue(state)
+  })
   const updateField = e => {
-    console.log('the onchange is calling',e.target)
+  if(e !== null && e !==undefined)
+  {
+  console.log('in the if block0', e)
+  if(e instanceof moment)
+  {
+    setState({
+      ...state,
+      Booking_date : e
+    })
+  }
+  else{
     setState({
       ...state,
       [e.target.name]: e.target.value
     });
+  
+  }
+  }
   };
-  const [form] = Form.useForm();
+
+  
+  
+  //console.log(...state)
   const onOk=() => {
     
     form
@@ -72,12 +92,15 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel,date, loading, setSt
         layout="vertical"
         
         name="form_in_modal"
-        initialValues={{
-          Booking_type: 'Provisional',
-          prefix : '+91',
-          Booking_date:date
+      //   initialValues={
+      //   //   {
+      //   //   Booking_type: 'Provisional',
+      //   //   prefix : '+91',
+      //   //   Booking_date:date,
           
-        }}
+      //   // }
+      //   state
+      // }
       >
         <Form.Item
           name="Customer_Name"
@@ -114,8 +137,14 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel,date, loading, setSt
           name="Booking_date" 
           label="Booking Date"
           style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}
+          rules={[
+            {
+              required: true,
+              message: 'Please input the booking date',
+            },
+          ]}
           >
-          <DatePicker disabled={true}   format={dateFormatList} onChange={updateField}/>
+          <DatePicker disabled={!isbooked}  name="Booking_date"  format={dateFormatList} onChange={updateField}/>
         </Form.Item>
         
         
@@ -163,32 +192,58 @@ const CollectionsPage = (props) => {
     Booking_date : props.date,
     paid:'',
     Due:'',
-    Booking_type:'',
+    Booking_type:'Provisional',
     Comments:''
   });
-  const [modelload , setModelload] = useState(false);
+  const [modelload , setModelload] = useState(true);
+  const [form] = Form.useForm();
   useEffect(() => {
-    let isBooked=false ;
+    
     const bookingStatusParam={}
     const dates=(props.date && props.date.format('YYYY-MM-DD')).split('-')
     bookingStatusParam['day']=dates[2]
     bookingStatusParam['month']=dates[1]
     bookingStatusParam['year']=dates[0]
     bookingStatus(bookingStatusParam).then(res=>{
-      isBooked = res.isBooked
-      setIsbooked(res.isBooked)
-    })
+      
+      isBooked = res.data.isBooked;
+      console.log(isBooked)
+      bookingId = res.data.bookingId;
+      setIsbooked(res.data.isBooked)
+    
+    
     if(isBooked)
     {
-
+      
+      getBookingByBookingID(bookingId).then(res=>{
+        setState({
+          ...state,
+          Customer_Name: res.data.customerName,
+          phone: res.data.phoneNo,
+          Occasion: res.data.ocassion,
+          Booking_date : props.date,
+          paid:'',
+          Due:'',
+          Booking_type:'',
+          Comments:''
+        });
+        setModelload(false)
+      }
+      )
+      
+      
     }
+   else{
     setModelload(false)
+   }
+  })
     }, [])
   const onCreate = values => {
     
     setLoading(true)
     newBookings(state).then(()=>{
       props.onClose();  
+      setLoading(false)
     }).catch(err=>console.log('error comes',err.response.data))
     
     //setVisible(false);
@@ -207,6 +262,7 @@ const CollectionsPage = (props) => {
         modelload={modelload}
         setModelload={setModelload}
         isbooked={isbooked}
+        form={form}
         onCancel={() => {
           props.onClose();  
           // setVisible(false);

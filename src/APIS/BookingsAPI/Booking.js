@@ -6,9 +6,13 @@ import {getCall,postCall} from '../APICalls'
 // })
 
 export const bookingStatus=data=>{
-    return getCall(`api/bookings/isbooked?day=${encodeURIComponent(data.day)}&month=${encodeURIComponent(data.month)}&year=${encodeURIComponent(data.year)}&propertyId=jfbaerfagdfgasgdsasdgasjkcad`)
+    return getCall(`api/bookings/isbooked?day=${encodeURIComponent(data.day)}&month=${encodeURIComponent(data.month)}&year=${encodeURIComponent(data.year)}`)
 }
 
 export const newBookings=data=>{
     return postCall(`api/bookings`,data)
+}
+
+export const getBookingByBookingID=id=>{
+    return getCall(`api/bookings/${id}`)
 }
