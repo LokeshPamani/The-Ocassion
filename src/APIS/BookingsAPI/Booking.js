@@ -20,3 +20,7 @@ export const getBookingByBookingID=id=>{
 export const updateBooking=data=>{
     return putCall(`api/bookings`,data)
 }
+
+export const getAllBookings=(data)=>{
+    return getCall(`api/bookings?month=${encodeURIComponent(data.month)}&year=${encodeURIComponent(data.year)}`)
+}

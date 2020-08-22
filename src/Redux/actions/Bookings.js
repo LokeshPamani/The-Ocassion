@@ -1,3 +1,5 @@
+import {getAllBookings} from '../../APIS/BookingsAPI/Booking'
+
 export const FETCH_BOOKING_REQUEST="FETCH_BOOKING_REQUEST";
 export const FETCH_BOOKING_SUCCESS="FETCH_BOOKING_SUCCESS";
 export const FETCH_BOOKING_ERROR="FETCH_BOOKING_ERROR"
@@ -22,8 +24,15 @@ export const fetchBookingError=(error)=>{
     }
 }
 
-export const fetchBookings=()=>{
+export const fetchBookings=(data)=>{
     return (dispatch)=>{
-
+        dispatch(fetchBookingRequest());
+        getAllBookings(data).then(res=>{
+            const bookings = res.data;
+            dispatch(fetchBookingSuccess(bookings));
+        }).catch(err=>{
+            const errMessage= err.response.data;
+            dispatch(fetchBookingError(errMessage));
+        })
     }
 }

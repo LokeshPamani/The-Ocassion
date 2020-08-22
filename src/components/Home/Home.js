@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Row, Col ,Card,Divider, Typography} from 'antd';
+import { Row, Col ,Card,Divider, Typography, Spin} from 'antd';
 import CustomCalendar from '../Calendar.js/CustomCalendar';
 
 const { Paragraph } = Typography;
@@ -22,6 +22,7 @@ class Home extends Component {
         
         return (
             <React.Fragment>
+                <Spin>
                 <Row gutter={16} style={{padding:"10px",background:"#ececec",height:"100%"}}>
                 <Col span={18}><CustomCalendar /></Col>
                 <Col span={6}>
@@ -48,6 +49,7 @@ class Home extends Component {
                 
                 </Col>
                 </Row>
+                </Spin>
             </React.Fragment>
         )
     }

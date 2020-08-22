@@ -1,9 +1,24 @@
 import React, { Component } from 'react'
-import { Calendar, Badge , Progress } from 'antd';
+import { Calendar, Badge , Progress, Spin } from 'antd';
 import { element } from 'prop-types';
 import Model from './CustomModel'
+import {connect} from 'react-redux'
+import {fetchBookings} from '../../Redux/actions/Bookings'
 
-export class CustomCalendar extends Component {
+const mapStateToProps=({bookingsReducer})=>{
+ console.log('the state is',bookingsReducer)
+  return{
+    bookings:bookingsReducer
+  }
+}
+
+const mapDispatchToProps = dispatch =>{
+  return{
+    fetchBookings : ()=> dispatch(fetchBookings({month:'08',year:'2020'}))
+  }
+}
+
+class CustomCalendar extends Component {
 
       constructor(props) {
         super(props)
@@ -12,10 +27,15 @@ export class CustomCalendar extends Component {
         this.state = {
            showForm : false,
            isHovering: '',
-           dateSelected : ''
+           dateSelected : '',
+           loading : false
         }
       }
       
+      componentDidMount(){
+        this.props.fetchBookings()
+        console.log(this.props)
+      }
     
       handleMouseHover(val) {
         
@@ -61,7 +81,7 @@ export class CustomCalendar extends Component {
 
 
     dateCellRender=(value)=>{
-     
+        
         const listData = this.getListData(value);
         
         return (
@@ -127,12 +147,13 @@ export class CustomCalendar extends Component {
     render() {
         return (
             <div>
-              //new String(value._d ).valueOf()
+              <Spin tip="Loading..." spinning={this.props.bookings.loading}>
                 <Calendar dateCellRender={this.dateCellRender} monthCellRender={this.monthCellRender} onSelect={this.onSelect}/>
                 {this.state.showForm && <Model date={this.state.dateSelected} onClose={this.onClose}/> }
+              </Spin>
             </div>
         )
     }
 }
 
-export default CustomCalendar
+export default connect(mapStateToProps, mapDispatchToProps) (CustomCalendar)

@@ -1,4 +1,4 @@
-const { FETCH_BOOKING_REQUEST, fetchBookingSuccess, FETCH_BOOKING_SUCCESS, FETCH_BOOKING_ERROR } = require("../actions/Bookings")
+import { FETCH_BOOKING_REQUEST, FETCH_BOOKING_SUCCESS, FETCH_BOOKING_ERROR } from "../actions/Bookings"
 
 const initialState={
     loading : false,
