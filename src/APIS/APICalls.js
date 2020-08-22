@@ -28,4 +28,16 @@ export const postCall = (url,data) => (
     // }).then(res=>res.json())
     axios.post( BASEURL+url,JSON.stringify(data),options)
   );
+
+  export const putCall = (url,data) => (
+    // fetch(BASEURL+url, {
+    //   method: "POST",
+    //   body: JSON.stringify(data),
+    //   credentials: 'include',
+    //   headers: {
+    //     "Content-Type": "application/json"
+    //   }
+    // }).then(res=>res.json())
+    axios.put( BASEURL+url,JSON.stringify(data),options)
+  );
   

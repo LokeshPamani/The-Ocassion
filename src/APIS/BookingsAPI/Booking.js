@@ -1,4 +1,4 @@
-import {getCall,postCall} from '../APICalls'
+import {getCall,postCall,putCall} from '../APICalls'
 
 // fetch(`https://api.parse.com/1/users?foo=${encodeURIComponent(data.foo)}&bar=${encodeURIComponent(data.bar)}`, {
 //   method: "GET",
@@ -15,4 +15,8 @@ export const newBookings=data=>{
 
 export const getBookingByBookingID=id=>{
     return getCall(`api/bookings/${id}`)
+}
+
+export const updateBooking=data=>{
+    return putCall(`api/bookings`,data)
 }

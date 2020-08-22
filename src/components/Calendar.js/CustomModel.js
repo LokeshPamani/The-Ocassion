@@ -2,7 +2,7 @@ import React, { useState,useEffect } from 'react';
 import {  Modal, Form, Input, Radio ,Select , DatePicker,Button, } from 'antd';
 import moment from 'moment';
 import { Spin, Alert } from 'antd';
-import {bookingStatus,newBookings, getBookingByBookingID} from '../../APIS/BookingsAPI/Booking'
+import {bookingStatus,newBookings, getBookingByBookingID,updateBooking} from '../../APIS/BookingsAPI/Booking'
 import {success,openNotification} from '../NotificationMessage/NotificationMessage'
 import './CustomModel.css'
 
@@ -22,7 +22,7 @@ const prefixSelector = (
 let isBooked ;
 let bookingId;
 
-const CollectionCreateForm = ({  onCreate, onCancel,date, loading, setState, state, modelload, isbooked, form }) => {
+const CollectionCreateForm = ({  onCreate, onCancel,date, loading, setState, state, modelload, isbooked, form, cancelButtonLoading, onCancelBooking }) => {
   useEffect(() => {
     form.setFieldsValue(state)
   })
@@ -73,15 +73,21 @@ const CollectionCreateForm = ({  onCreate, onCancel,date, loading, setState, sta
       // okText="Book"
       cancelText="Cancel"
       onCancel={onCancel}
-      onOk={onOk}
+      // onOk={onOk}
       
       footer={[
         <Button key="back" onClick={onCancel}>
           Return
         </Button>,
+        !isbooked ? 
         <Button key="submit" type="primary" loading={loading} onClick={onOk} disabled={modelload}>
           Book
-        </Button>,
+        </Button>
+        :
+         <Button key="submit" type="primary" loading={loading} onClick={onOk} disabled={modelload}>
+          Update
+        </Button>
+
       ]}
     >
       
@@ -167,9 +173,9 @@ const CollectionCreateForm = ({  onCreate, onCancel,date, loading, setState, sta
        {isbooked ? <Form.Item 
           name="Cancel_booking" 
           >
-          <Button type="text" size='large' danger>
-          Cancel Booking
-        </Button>
+          <Button type="text" size='large' danger  loading={cancelButtonLoading} onClick={onCancelBooking}>
+            Cancel Booking
+          </Button>
         </Form.Item> : null}
        
       </Form>
@@ -184,6 +190,7 @@ const CollectionCreateForm = ({  onCreate, onCancel,date, loading, setState, sta
 const CollectionsPage = (props) => {
   const [visible, setVisible ] = useState(true);
   const [loading , setLoading] = useState(false);
+  const [cancelButtonLoading,setCancelButtonLoading] = useState(false);
   const [isbooked , setIsbooked] = useState(false)
   const [state, setState] = useState({
     Customer_Name: '',
@@ -241,14 +248,28 @@ const CollectionsPage = (props) => {
   const onCreate = values => {
     
     setLoading(true)
-    newBookings(state).then(()=>{
-      props.onClose();  
-      setLoading(false)
-    }).catch(err=>console.log('error comes',err.response.data))
+    if(isbooked)
+    {
+      updateBooking(state).then(()=>{
+        props.onClose();  
+        setLoading(false)
+      }).catch(err=>console.log('error comes',err.response.data))
+    }
+    else{
+      newBookings(state).then(()=>{
+        props.onClose();  
+        setLoading(false)
+      }).catch(err=>console.log('error comes',err.response.data))
+  }
     
     //setVisible(false);
   };
   
+  const onCancelBooking = ()=>{
+    setLoading(true);
+    setCancelButtonLoading(true);
+    
+  }
   return (
     <div>
       
@@ -257,12 +278,14 @@ const CollectionsPage = (props) => {
         onCreate={onCreate}
         date={props.date}
         loading={loading}
+        cancelButtonLoading={cancelButtonLoading}
         setState={setState}
         state={state}
         modelload={modelload}
         setModelload={setModelload}
         isbooked={isbooked}
         form={form}
+        onCancelBooking={onCancelBooking}
         onCancel={() => {
           props.onClose();  
           // setVisible(false);

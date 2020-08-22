@@ -1,20 +1,33 @@
 import React, { Component } from 'react'
-import { Calendar, Badge } from 'antd';
+import { Calendar, Badge , Progress } from 'antd';
 import { element } from 'prop-types';
 import Model from './CustomModel'
+
 export class CustomCalendar extends Component {
 
       constructor(props) {
         super(props)
-      
+        this.handleMouseHover = this.handleMouseHover.bind(this);
+   
         this.state = {
            showForm : false,
+           isHovering: '',
            dateSelected : ''
         }
       }
       
+    
+      handleMouseHover(val) {
+        
+        this.setState(()=>this.toggleHoverState(val));
+      }
 
-
+      toggleHoverState(val) {
+        return {
+          //isHovering: !state.isHovering,
+          isHovering: val
+        };
+      }
     getListData=(value)=>{
         let listData;
         switch (value.date()) {
@@ -48,6 +61,7 @@ export class CustomCalendar extends Component {
 
 
     dateCellRender=(value)=>{
+     
         const listData = this.getListData(value);
         
         return (
@@ -60,7 +74,21 @@ export class CustomCalendar extends Component {
         //     ))}
         //   </ul>
         
-        listData.length>0 && <React.Fragment><div style={{height:"60%",width:"100%",background:"blue"}}>lokesh</ div><div style={{height:"40%",width:"100%",background:"red"}} /> </ React.Fragment>
+        listData.length>0 ? <React.Fragment><div id='divcustom' style={{height:"100%",width:"100%",background:"grey",opacity:"10"}}
+        onMouseEnter={()=>this.handleMouseHover(value._d)}
+          onMouseLeave={()=>this.handleMouseHover('')}
+          >
+            {
+              new String(this.state.isHovering).valueOf() === new String(value._d).valueOf() &&<Progress type="circle" percent={30} width={40} />
+    }</ div> </ React.Fragment>
+    :
+    <React.Fragment><div id='divcustom' style={{height:"100%",width:"100%"}}
+        onMouseEnter={()=>this.handleMouseHover(value._d)}
+          onMouseLeave={()=>this.handleMouseHover('')}
+          >
+            {
+              new String(this.state.isHovering).valueOf() === new String(value._d).valueOf() &&<Progress type="circle" percent={30} width={40} />
+    }</ div> </ React.Fragment>
         )
       }
 
@@ -94,11 +122,12 @@ export class CustomCalendar extends Component {
           dateSelected : value
         })
         //console.log(value,'the valudis is',  `${value && value.format('YYYY-MM-DD')}`)
-        console.log('in the onselect ', this.state.showForm)
+        
       };
     render() {
         return (
             <div>
+              //new String(value._d ).valueOf()
                 <Calendar dateCellRender={this.dateCellRender} monthCellRender={this.monthCellRender} onSelect={this.onSelect}/>
                 {this.state.showForm && <Model date={this.state.dateSelected} onClose={this.onClose}/> }
             </div>
