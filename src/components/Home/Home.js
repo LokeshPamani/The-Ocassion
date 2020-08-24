@@ -1,17 +1,45 @@
 import React, { Component } from 'react'
 import { Row, Col ,Card,Divider, Typography, Spin} from 'antd';
 import CustomCalendar from '../Calendar.js/CustomCalendar';
-
+import {fetchBookings} from '../../Redux/actions/Bookings'
+import {connect} from 'react-redux'
+import {error} from '../NotificationMessage/NotificationMessage'
 const { Paragraph } = Typography;
+
+
+const mapStateToProps=({bookingsReducer})=>{
+    console.log('the state is',bookingsReducer)
+     return{
+       bookings:bookingsReducer
+     }
+   }
+   
+   const mapDispatchToProps = dispatch =>{
+     return{
+       fetchBookings : (month,year)=> dispatch(fetchBookings({month:month,year:year}))
+     }
+   }
+   
 
 class Home extends Component {
     constructor(props) {
         super(props)
     
         this.state = {
-             Notes : 'Make notes that u remember'
+             Notes : 'Make notes that u remember',
+             error : this.props.bookings.error ? true : false
         }
     }
+
+
+    fetchAllBookings=(month,year)=>{
+      this.props.fetchBookings('08','2020')
+    }
+
+    componentDidMount(){
+        this.fetchAllBookings();
+        console.log(this.props)
+      }
 
     onChange = str => {
         
@@ -21,10 +49,11 @@ class Home extends Component {
     render() {
         
         return (
+          this.state.error?error(this.props.boookings.error) :
             <React.Fragment>
-                <Spin>
+                <Spin tip="Loading..." spinning={this.props.bookings.loading}>
                 <Row gutter={16} style={{padding:"10px",background:"#ececec",height:"100%"}}>
-                <Col span={18}><CustomCalendar /></Col>
+                <Col span={18}><CustomCalendar bookings={this.props.bookings.bookings}/></Col>
                 <Col span={6}>
                     <Row>
                     <Card title="Notes" bordered={false} style={{ width: '100%',height : "370px" }}>
@@ -55,4 +84,4 @@ class Home extends Component {
     }
 }
 
-export default Home
+export default connect(mapStateToProps, mapDispatchToProps) (Home)

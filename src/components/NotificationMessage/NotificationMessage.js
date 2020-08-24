@@ -4,8 +4,8 @@ export const success = (mess) => {
         message.success(mess);
       };
     
-export const error = () => {
-        message.error('This is an error message');
+export const error = (str) => {
+        message.error('ERR: '+str);
       };
       
 export const warning = () => {

@@ -2,21 +2,9 @@ import React, { Component } from 'react'
 import { Calendar, Badge , Progress, Spin } from 'antd';
 import { element } from 'prop-types';
 import Model from './CustomModel'
-import {connect} from 'react-redux'
-import {fetchBookings} from '../../Redux/actions/Bookings'
+import {error} from '../NotificationMessage/NotificationMessage'
 
-const mapStateToProps=({bookingsReducer})=>{
- console.log('the state is',bookingsReducer)
-  return{
-    bookings:bookingsReducer
-  }
-}
 
-const mapDispatchToProps = dispatch =>{
-  return{
-    fetchBookings : ()=> dispatch(fetchBookings({month:'08',year:'2020'}))
-  }
-}
 
 class CustomCalendar extends Component {
 
@@ -32,10 +20,7 @@ class CustomCalendar extends Component {
         }
       }
       
-      componentDidMount(){
-        this.props.fetchBookings()
-        console.log(this.props)
-      }
+      
     
       handleMouseHover(val) {
         
@@ -50,37 +35,22 @@ class CustomCalendar extends Component {
       }
     getListData=(value)=>{
         let listData;
-        switch (value.date()) {
-          case 8:
-            listData = [
-              { type: 'warning', content: 'This is warning event.' },
-              { type: 'success', content: 'This is usual event.' },
-            ];
-            break;
-          case 10:
-            listData = [
-              { type: 'warning', content: 'This is warning event.' },
-              { type: 'success', content: 'This is usual event.' },
-              { type: 'error', content: 'This is error event.' },
-            ];
-            break;
-          case 15:
-            listData = [
-              { type: 'warning', content: 'This is warning event' },
-              { type: 'success', content: 'This is very long usual event。。....' },
-              { type: 'error', content: 'This is error event 1.' },
-              { type: 'error', content: 'This is error event 2.' },
-              { type: 'error', content: 'This is error event 3.' },
-              { type: 'error', content: 'This is error event 4.' },
-            ];
-            break;
-          default:
-        }
+        this.props.bookings.forEach(element => {
+          const date = element.date.split('-')
+          console.log(value.date().toString() , ' ', date[2])
+          if(date[2] === value.date().toString() && date[1] === value.month().toString() )
+          {
+           
+            listData=element
+          }
+              
+        });
         return listData || [];
       }
 
 
     dateCellRender=(value)=>{
+        
         
         const listData = this.getListData(value);
         
@@ -144,16 +114,21 @@ class CustomCalendar extends Component {
         //console.log(value,'the valudis is',  `${value && value.format('YYYY-MM-DD')}`)
         
       };
+
+      onPanelChange=(date,mode)=>{
+        console.log('on panel change ',date,mode);
+      }
+
     render() {
         return (
             <div>
-              <Spin tip="Loading..." spinning={this.props.bookings.loading}>
-                <Calendar dateCellRender={this.dateCellRender} monthCellRender={this.monthCellRender} onSelect={this.onSelect}/>
+              
+                <Calendar dateCellRender={this.dateCellRender} monthCellRender={this.monthCellRender} onSelect={this.onSelect} onPanelChange={this.onPanelChange}/>
                 {this.state.showForm && <Model date={this.state.dateSelected} onClose={this.onClose}/> }
-              </Spin>
+             
             </div>
         )
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps) (CustomCalendar)
+export default  CustomCalendar
