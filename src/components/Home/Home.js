@@ -5,10 +5,9 @@ import {fetchBookings} from '../../Redux/actions/Bookings'
 import {connect} from 'react-redux'
 import {error} from '../NotificationMessage/NotificationMessage'
 const { Paragraph } = Typography;
-
+var setIntervlId;
 
 const mapStateToProps=({bookingsReducer})=>{
-    console.log('the state is',bookingsReducer)
      return{
        bookings:bookingsReducer
      }
@@ -27,31 +26,48 @@ class Home extends Component {
     
         this.state = {
              Notes : 'Make notes that u remember',
-             error : this.props.bookings.error ? true : false
+             error : this.props.bookings.error ? true : false,
+             firstLoading : 0,
+             month : String(new Date().getMonth() + 1).padStart(2, '0'),
+             year : new Date().getFullYear()
+
         }
     }
 
 
     fetchAllBookings=(month,year)=>{
-      this.props.fetchBookings('08','2020')
+      this.setState(prevstate =>{
+        return {
+          firstLoading : prevstate.firstLoading + 1
+        }
+      }
+        )
+      this.props.fetchBookings(month || this.state.month,year || this.state.year)
+     
     }
 
     componentDidMount(){
-        this.fetchAllBookings();
-        console.log(this.props)
+        this.fetchAllBookings(null,null);
+  
+        setIntervlId = setInterval(()=>{
+            this.fetchAllBookings()
+          },5000)
+        
       }
 
+    componentWillUnmount(){
+        clearInterval(setIntervlId);
+      }
     onChange = str => {
         
         this.setState({ Notes : str });
       };
     
     render() {
-        
         return (
           this.state.error?error(this.props.boookings.error) :
             <React.Fragment>
-                <Spin tip="Loading..." spinning={this.props.bookings.loading}>
+                <Spin tip="Loading..." spinning={(this.state.firstLoading === 1)  && this.props.bookings.loading}>
                 <Row gutter={16} style={{padding:"10px",background:"#ececec",height:"100%"}}>
                 <Col span={18}><CustomCalendar bookings={this.props.bookings.bookings}/></Col>
                 <Col span={6}>

@@ -1,5 +1,10 @@
 import { message } from 'antd';
 import { Button, notification } from 'antd';
+
+message.config({
+  top: 100
+});
+
 export const success = (mess) => {
         message.success(mess);
       };

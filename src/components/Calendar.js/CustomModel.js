@@ -3,7 +3,7 @@ import {  Modal, Form, Input, Radio ,Select , DatePicker,Button, } from 'antd';
 import moment from 'moment';
 import { Spin, Alert } from 'antd';
 import {bookingStatus,newBookings, getBookingByBookingID,updateBooking} from '../../APIS/BookingsAPI/Booking'
-import {success,openNotification} from '../NotificationMessage/NotificationMessage'
+import {success,openNotification, error} from '../NotificationMessage/NotificationMessage'
 import './CustomModel.css'
 
 const { Option } = Select;
@@ -214,7 +214,6 @@ const CollectionsPage = (props) => {
     bookingStatus(bookingStatusParam).then(res=>{
       
       isBooked = res.data.isBooked;
-      console.log(isBooked)
       bookingId = res.data.bookingId;
       setIsbooked(res.data.isBooked)
     
@@ -250,16 +249,18 @@ const CollectionsPage = (props) => {
     setLoading(true)
     if(isbooked)
     {
-      updateBooking(state).then(()=>{
+      updateBooking(bookingId,state).then(()=>{
         props.onClose();  
         setLoading(false)
-      }).catch(err=>console.log('error comes',err.response.data))
+        success('Booking Succesfully Updated!!!')
+      }).catch(err=>error(err.response.data))
     }
     else{
       newBookings(state).then(()=>{
         props.onClose();  
         setLoading(false)
-      }).catch(err=>console.log('error comes',err.response.data))
+        success('Booking Successful!!!')
+      }).catch(err=>error(err.response.data))
   }
     
     //setVisible(false);

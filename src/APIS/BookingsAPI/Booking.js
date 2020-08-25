@@ -17,8 +17,8 @@ export const getBookingByBookingID=id=>{
     return getCall(`api/bookings/${id}`)
 }
 
-export const updateBooking=data=>{
-    return putCall(`api/bookings`,data)
+export const updateBooking=(bookingId,data)=>{
+    return putCall(`api/bookings/${bookingId}`,data)
 }
 
 export const getAllBookings=(data)=>{

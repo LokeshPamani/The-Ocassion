@@ -3,7 +3,7 @@ import { Calendar, Badge , Progress, Spin } from 'antd';
 import { element } from 'prop-types';
 import Model from './CustomModel'
 import {error} from '../NotificationMessage/NotificationMessage'
-
+import moment from 'moment'
 
 
 class CustomCalendar extends Component {
@@ -36,16 +36,14 @@ class CustomCalendar extends Component {
     getListData=(value)=>{
         let listData;
         this.props.bookings.forEach(element => {
-          const date = element.date.split('-')
-          console.log(value.date().toString() , ' ', date[2])
-          if(date[2] === value.date().toString() && date[1] === value.month().toString() )
+          const date = moment(element.date)
+          if(date.date() === value.date() && date.month() === value.month() )
           {
-           
             listData=element
           }
               
         });
-        return listData || [];
+        return listData || undefined;
       }
 
 
@@ -64,7 +62,7 @@ class CustomCalendar extends Component {
         //     ))}
         //   </ul>
         
-        listData.length>0 ? <React.Fragment><div id='divcustom' style={{height:"100%",width:"100%",background:"grey",opacity:"10"}}
+        listData ? <React.Fragment><div id='divcustom' style={{height:"100%",width:"100%",background:"grey",opacity:"10"}}
         onMouseEnter={()=>this.handleMouseHover(value._d)}
           onMouseLeave={()=>this.handleMouseHover('')}
           >
