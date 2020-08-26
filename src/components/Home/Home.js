@@ -6,6 +6,7 @@ import {connect} from 'react-redux'
 import {error} from '../NotificationMessage/NotificationMessage'
 const { Paragraph } = Typography;
 var setIntervlId;
+var loadingTest = 0;
 
 const mapStateToProps=({bookingsReducer})=>{
      return{
@@ -27,7 +28,6 @@ class Home extends Component {
         this.state = {
              Notes : 'Make notes that u remember',
              error : this.props.bookings.error ? true : false,
-             firstLoading : 0,
              month : String(new Date().getMonth() + 1).padStart(2, '0'),
              year : new Date().getFullYear()
 
@@ -36,12 +36,15 @@ class Home extends Component {
 
 
     fetchAllBookings=(month,year)=>{
-      this.setState(prevstate =>{
-        return {
-          firstLoading : prevstate.firstLoading + 1
-        }
+      if(month && year)
+      {
+        this.setState({
+          month : month,
+          year : year
+        })
+        loadingTest = 1
       }
-        )
+      loadingTest = loadingTest + 1
       this.props.fetchBookings(month || this.state.month,year || this.state.year)
      
     }
@@ -67,9 +70,9 @@ class Home extends Component {
         return (
           this.state.error?error(this.props.boookings.error) :
             <React.Fragment>
-                <Spin tip="Loading..." spinning={(this.state.firstLoading === 1)  && this.props.bookings.loading}>
+                <Spin tip="Loading..." spinning={(loadingTest === 1)  && this.props.bookings.loading}>
                 <Row gutter={16} style={{padding:"10px",background:"#ececec",height:"100%"}}>
-                <Col span={18}><CustomCalendar bookings={this.props.bookings.bookings}/></Col>
+                <Col span={18}><CustomCalendar bookings={this.props.bookings.bookings} fetchBookingsFunction={this.fetchAllBookings}/></Col>
                 <Col span={6}>
                     <Row>
                     <Card title="Notes" bordered={false} style={{ width: '100%',height : "370px" }}>

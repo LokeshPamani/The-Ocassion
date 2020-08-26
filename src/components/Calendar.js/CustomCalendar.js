@@ -6,6 +6,7 @@ import {error} from '../NotificationMessage/NotificationMessage'
 import moment from 'moment'
 
 
+
 class CustomCalendar extends Component {
 
       constructor(props) {
@@ -16,12 +17,13 @@ class CustomCalendar extends Component {
            showForm : false,
            isHovering: '',
            dateSelected : '',
-           loading : false
+           loading : false,
         }
       }
       
       
     
+
       handleMouseHover(val) {
         
         this.setState(()=>this.toggleHoverState(val));
@@ -34,16 +36,50 @@ class CustomCalendar extends Component {
         };
       }
     getListData=(value)=>{
-        let listData;
-        this.props.bookings.forEach(element => {
-          const date = moment(element.date)
-          if(date.date() === value.date() && date.month() === value.month() )
-          {
-            listData=element
-          }
+        let listData = {};
+        // this.props.bookings.forEach(element => {
+        //   const date = moment(element.date)
+        //   // if(date.date() === value.date() && date.month() === value.month() )
+        //   if(date.date() === value.date())
+        //   {
+        //     listData=element
+        //   }
               
-        });
-        return listData || undefined;
+        // });
+        // console.log(this.props.bookings.bookings)
+        const bookings = this.props.bookings
+        if(bookings.bookings)
+        {
+          if(value.date() <= 15)
+            {
+            for (let counter=0; counter < Math.ceil((bookings.bookings.length)/2); counter++){
+              
+              if (parseInt(bookings.bookings[counter].date) === value.date() ){
+                console.log('in the if',bookings.bookings[counter].isBooked)
+                listData.weightage=bookings.bookings[counter].weight
+                if(bookings.bookings[counter].isBooked)
+                {
+                  listData.bookings =bookings.bookings[counter].booking
+                }
+                break;
+              }
+            }  
+          }
+          else{
+            for (let counter=Math.ceil((bookings.bookings.length)/2); counter < bookings.bookings.length; counter++){
+              if (parseInt(bookings.bookings[counter].date) === value.date() ){
+                
+                listData.weightage=bookings.bookings[counter].weight
+                if(bookings.bookings[counter].isBooked)
+                {
+                  listData.bookings =bookings.bookings[counter].booking
+                }
+                break;
+              }
+            }  
+          }
+      }  
+        return listData;
       }
 
 
@@ -62,13 +98,26 @@ class CustomCalendar extends Component {
         //     ))}
         //   </ul>
         
-        listData ? <React.Fragment><div id='divcustom' style={{height:"100%",width:"100%",background:"grey",opacity:"10"}}
+        listData.bookings ? <React.Fragment><div id='divcustom' style={{height:"100%",width:"100%",background:"grey",opacity:"10"}}
         onMouseEnter={()=>this.handleMouseHover(value._d)}
           onMouseLeave={()=>this.handleMouseHover('')}
           >
             {
               new String(this.state.isHovering).valueOf() === new String(value._d).valueOf() &&<Progress type="circle" percent={30} width={40} />
-    }</ div> </ React.Fragment>
+             }
+             <ul className="events">
+            
+              <li>
+                <Badge status='success' text={listData.bookings.customerName} />
+              </li>
+              <li>
+                <Badge status='success' text={listData.bookings.ocassion} />
+              </li>
+              
+           
+           
+          </ul>
+          </ div> </ React.Fragment>
     :
     <React.Fragment><div id='divcustom' style={{height:"100%",width:"100%"}}
         onMouseEnter={()=>this.handleMouseHover(value._d)}
@@ -97,6 +146,7 @@ class CustomCalendar extends Component {
       }
 
       onClose=()=>{
+
           this.setState({
             showForm:false,
             dateSelected:''
@@ -104,7 +154,7 @@ class CustomCalendar extends Component {
       }
 
       onSelect = value => {
-        
+       // console.log('selected date',value)
         this.setState({
           showForm : true,
           dateSelected : value
@@ -114,7 +164,8 @@ class CustomCalendar extends Component {
       };
 
       onPanelChange=(date,mode)=>{
-        console.log('on panel change ',date,mode);
+        this.props.fetchBookingsFunction(date.month()+1,date.year())
+
       }
 
     render() {
