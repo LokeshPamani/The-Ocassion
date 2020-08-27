@@ -16,6 +16,7 @@ import {
 // import CustomCalendar from '../Calendar.js/CustomCalendar';
 
 import Home from '../Home';
+import Weightage from '../Weightages'
 
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
@@ -59,8 +60,14 @@ class HeaderDash extends Component {
                 style={{ height: '100%', borderRight: 0 }}
               >
                 
-                  <Menu.Item key="1" icon={<HomeOutlined />}>Home</Menu.Item>
-                  <Menu.Item key="2">option2</Menu.Item>
+                  <Menu.Item key="1" icon={<HomeOutlined />}>
+                    <span>Home</span>
+                    <Link to="/home" />
+                  </Menu.Item>
+                  <Menu.Item key="2">
+                    <span>Weightage</span>
+                    <Link to="/weightage" />
+                  </Menu.Item>
                   <Menu.Item key="3">option3</Menu.Item>
                   <Menu.Item key="4">option4</Menu.Item>
                 
@@ -83,9 +90,10 @@ class HeaderDash extends Component {
               <Content
                 className="site-layout-background"
                 style={{
-                  padding: 24,
+                  background:"#ececec",
                   margin: 0,
-                  minHeight: 280,
+                  height :'100%'
+                  
                 }}
               >
                 {/* <Router>
@@ -101,7 +109,7 @@ class HeaderDash extends Component {
               <Switch>
               <Route path="/home" component={Home} />
               <Route path="/" exact  component={Home} />
-              <Route path="/more" compoent={()=><div>lookesh</div>} />
+              <Route path="/weightage" component={Weightage} />
               </Switch>
               {/* <Home /> */}
               

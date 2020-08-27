@@ -73,7 +73,7 @@ class Home extends Component {
           this.state.error?error(this.props.boookings.error) :
             <React.Fragment>
                 <Spin tip="Loading..." spinning={(loadingTest === 1)  && this.props.bookings.loading}>
-                <Row gutter={16} style={{padding:"10px",background:"#ececec",height:"100%"}}>
+                <Row gutter={15} style={{padding:"15px",height:"100%"}}>
                 <Col span={18}><CustomCalendar bookings={this.props.bookings.bookings} fetchBookingsFunction={this.fetchAllBookings}/></Col>
                 <Col span={6}>
                     <Row>

@@ -97,7 +97,7 @@ class CustomCalendar extends Component {
         //   </ul>
         
         listData.bookings ? <React.Fragment>
-          <div className='divcustom' style={{height:"100%",width:"100%",background:"red",opacity:"10"}}
+          <div className='divcustom' style={{height:"100%",width:"100%",background: '#40a9ff',opacity:"90"}}
             onMouseEnter={()=>this.handleMouseHover(value._d)}
             onMouseLeave={()=>this.handleMouseHover('')}
           > 
@@ -105,15 +105,15 @@ class CustomCalendar extends Component {
             
               {
                 new String(this.state.isHovering).valueOf() === new String(value._d).valueOf() ?
-                <Progress className='weightage' type="circle" percent={30} width={60} />
+                <Progress className='weightage' type="circle" percent={listData.weightage} width={60} />
                 :
                 <ul className="events">
             
                 <li>
-                  <Badge status='success' text={listData.bookings.customerName} />
+                  <Badge status='error' text={listData.bookings.customerName} />
                 </li>
                 <li>
-                  <Badge status='success' text={listData.bookings.ocassion} />
+                  <Badge status='error' text={listData.bookings.ocassion} />
                 </li>
                 
              
@@ -129,7 +129,7 @@ class CustomCalendar extends Component {
               onMouseLeave={()=>this.handleMouseHover('')}
           >
             {
-              new String(this.state.isHovering).valueOf() === new String(value._d).valueOf() &&<Progress className='weightage' type="circle" percent={30} width={60} format={() => 'default'} />
+              new String(this.state.isHovering).valueOf() === new String(value._d).valueOf() &&<Progress className='weightage' type="circle" percent={100} width={70} format={(percent) => `${percent}%Rise`} />
             }
             </ div> 
           </ React.Fragment>

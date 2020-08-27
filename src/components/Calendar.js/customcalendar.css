@@ -3,7 +3,7 @@
     margin: 0;
     padding: 0;
   }
-  .events .ant-badge-status {
+  .events .ant-badge-status  {
     overflow: hidden;
     white-space: nowrap;
     width: 100%;
@@ -11,7 +11,13 @@
     font-size: 12px;
     float: left;
     text-align: left;
+    
   }
+
+  .ant-badge-status-text{
+    color: white;
+  }
+
   .notes-month {
     text-align: center;
     font-size: 28px;
