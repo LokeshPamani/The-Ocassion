@@ -4,6 +4,7 @@ import CustomCalendar from '../Calendar.js/CustomCalendar';
 import {fetchBookings} from '../../Redux/actions/Bookings'
 import {connect} from 'react-redux'
 import {error} from '../NotificationMessage/NotificationMessage'
+import moment from 'moment'
 const { Paragraph } = Typography;
 var setIntervlId;
 var loadingTest = 0;
@@ -28,7 +29,8 @@ class Home extends Component {
         this.state = {
              Notes : 'Make notes that u remember',
              error : this.props.bookings.error ? true : false,
-             month : String(new Date().getMonth() + 1).padStart(2, '0'),
+            //  month : String(new Date().getMonth() + 1).padStart(2, '0'),
+             month : moment().month()+1,
              year : new Date().getFullYear()
 
         }

@@ -4,7 +4,7 @@ import { element } from 'prop-types';
 import Model from './CustomModel'
 import {error} from '../NotificationMessage/NotificationMessage'
 import moment from 'moment'
-
+import './customcalendar.css'
 
 
 class CustomCalendar extends Component {
@@ -53,9 +53,7 @@ class CustomCalendar extends Component {
           if(value.date() <= 15)
             {
             for (let counter=0; counter < Math.ceil((bookings.bookings.length)/2); counter++){
-              
-              if (parseInt(bookings.bookings[counter].date) === value.date() ){
-                console.log('in the if',bookings.bookings[counter].isBooked)
+               if (parseInt(bookings.bookings[counter].date) === value.date() && parseInt(bookings.bookings[counter].month) === value.month()+1){
                 listData.weightage=bookings.bookings[counter].weight
                 if(bookings.bookings[counter].isBooked)
                 {
@@ -66,9 +64,9 @@ class CustomCalendar extends Component {
             }  
           }
           else{
+            
             for (let counter=Math.ceil((bookings.bookings.length)/2); counter < bookings.bookings.length; counter++){
-              if (parseInt(bookings.bookings[counter].date) === value.date() ){
-                
+              if (parseInt(bookings.bookings[counter].date) === value.date() && parseInt(bookings.bookings[counter].month) === value.month()+1){
                 listData.weightage=bookings.bookings[counter].weight
                 if(bookings.bookings[counter].isBooked)
                 {
@@ -98,34 +96,43 @@ class CustomCalendar extends Component {
         //     ))}
         //   </ul>
         
-        listData.bookings ? <React.Fragment><div id='divcustom' style={{height:"100%",width:"100%",background:"grey",opacity:"10"}}
-        onMouseEnter={()=>this.handleMouseHover(value._d)}
-          onMouseLeave={()=>this.handleMouseHover('')}
-          >
-            {
-              new String(this.state.isHovering).valueOf() === new String(value._d).valueOf() &&<Progress type="circle" percent={30} width={40} />
-             }
-             <ul className="events">
+        listData.bookings ? <React.Fragment>
+          <div className='divcustom' style={{height:"100%",width:"100%",background:"red",opacity:"10"}}
+            onMouseEnter={()=>this.handleMouseHover(value._d)}
+            onMouseLeave={()=>this.handleMouseHover('')}
+          > 
             
-              <li>
-                <Badge status='success' text={listData.bookings.customerName} />
-              </li>
-              <li>
-                <Badge status='success' text={listData.bookings.ocassion} />
-              </li>
-              
-           
-           
-          </ul>
-          </ div> </ React.Fragment>
-    :
-    <React.Fragment><div id='divcustom' style={{height:"100%",width:"100%"}}
-        onMouseEnter={()=>this.handleMouseHover(value._d)}
-          onMouseLeave={()=>this.handleMouseHover('')}
+            
+              {
+                new String(this.state.isHovering).valueOf() === new String(value._d).valueOf() ?
+                <Progress className='weightage' type="circle" percent={30} width={60} />
+                :
+                <ul className="events">
+            
+                <li>
+                  <Badge status='success' text={listData.bookings.customerName} />
+                </li>
+                <li>
+                  <Badge status='success' text={listData.bookings.ocassion} />
+                </li>
+                
+             
+             
+                 </ul>
+              }
+          </ div>
+          </ React.Fragment>
+          :
+          <React.Fragment>
+          <div className='divcustom' style={{height:"100%",width:"100%"}}
+               onMouseEnter={()=>this.handleMouseHover(value._d)}
+              onMouseLeave={()=>this.handleMouseHover('')}
           >
             {
-              new String(this.state.isHovering).valueOf() === new String(value._d).valueOf() &&<Progress type="circle" percent={30} width={40} />
-    }</ div> </ React.Fragment>
+              new String(this.state.isHovering).valueOf() === new String(value._d).valueOf() &&<Progress className='weightage' type="circle" percent={30} width={60} format={() => 'default'} />
+            }
+            </ div> 
+          </ React.Fragment>
         )
       }
 
