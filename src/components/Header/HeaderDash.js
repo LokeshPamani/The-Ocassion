@@ -1,8 +1,8 @@
 import React,{Component} from 'react';
 import 'antd/dist/antd.css';
 import './headerdash.css';
-import { Layout, Menu,Typography,Badge,Popover ,Avatar  } from 'antd';
-import { UserOutlined, LaptopOutlined, NotificationOutlined ,BellFilled ,HomeOutlined} from '@ant-design/icons';
+import { Layout, Menu,Typography,Badge,Popover ,Avatar   } from 'antd';
+import { UserOutlined, LaptopOutlined, NotificationOutlined ,BellFilled ,HomeOutlined, LogoutOutlined , SettingOutlined } from '@ant-design/icons';
 import {
   BrowserRouter as Router,
   Switch,
@@ -22,7 +22,40 @@ const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 const { Title } = Typography;
 class HeaderDash extends Component {
+  
   render() {
+  const text = <span>Signed as {'Lokesh Pamnani'}</span>;
+const content = (
+  <Menu
+  mode="inline"
+  style={{ height: '100%', borderRight: 0 }}
+>
+  
+    <Menu.Item key="1" icon={<SettingOutlined />}>
+      <span>Settings</span>
+      <Link to="/home" />
+    </Menu.Item>
+    <Menu.Item key="2" icon={<LogoutOutlined />}>
+      <span>Logout</span>
+      <Link to="/weightage" />
+    </Menu.Item>
+    {/* <Menu.Item key="3">option3</Menu.Item>
+    <Menu.Item key="4">option4</Menu.Item>
+  
+  <SubMenu key="sub2" icon={<LaptopOutlined />} title="subnav 2">
+    <Menu.Item key="5">option5</Menu.Item>
+    <Menu.Item key="6">option6</Menu.Item>
+    <Menu.Item key="7">option7</Menu.Item>
+    <Menu.Item key="8">option8</Menu.Item>
+  </SubMenu>
+  <SubMenu key="sub3" icon={<NotificationOutlined />} title="subnav 3">
+    <Menu.Item key="9">option9</Menu.Item>
+    <Menu.Item key="10">option10</Menu.Item>
+    <Menu.Item key="11">option11</Menu.Item>
+    <Menu.Item key="12">option12</Menu.Item>
+  </SubMenu> */}
+</Menu>
+);
     return (
       <div>
         <Layout>
@@ -48,7 +81,10 @@ class HeaderDash extends Component {
               </Popover>
              
               {/* <BellFilled style={{display: "inline-block",marginRight:"20px",fontSize:"1.5rem",color:"white"}}/> */}
-              <Avatar style={{float:'right',float:"right",marginTop:"1.0rem"}} size={32} icon={<UserOutlined />} onClick={()=>console.log('click')}/>
+              <Popover placement="bottomRight" title={text} content={content} trigger="click">
+                <Avatar style={{float:'right',float:"right",marginTop:"1.0rem"}} size={32} icon={<UserOutlined />} onClick={()=>console.log('click')}/>
+              </Popover>
+              {/* <Avatar style={{float:'right',float:"right",marginTop:"1.0rem"}} size={32} icon={<UserOutlined />} onClick={()=>console.log('click')}/> */}
               </div>
           </Header>
           <Layout>

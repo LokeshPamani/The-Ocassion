@@ -10,6 +10,7 @@ var setIntervlId;
 var loadingTest = 0;
 
 const mapStateToProps=({bookingsReducer})=>{
+    console.log(bookingsReducer)
      return{
        bookings:bookingsReducer
      }
@@ -84,10 +85,14 @@ class Home extends Component {
                     <br></br>
                     <Row>
                         <Card title="Statistics in Month" bordered={false} style={{ width: '100%' }}>
-                        <p><strong>Booked</strong> - 5</p>
-                        <p><strong>Available</strong> - 17</p>
-                        <p><strong>Provisinal Bookings</strong> - 17</p>
-                        <p><strong>Cancelled </strong> - 17</p>
+                         { this.props.bookings.bookings.stats  &&
+                           <div>
+                            <p><strong>Booked</strong> - {this.props.bookings.bookings.stats.booked}</p>
+                            <p><strong>Available</strong> - {this.props.bookings.bookings.stats.available}</p>
+                            <p><strong>Provisinal Bookings</strong> - 17</p>
+                            <p><strong>Cancelled </strong> - {this.props.bookings.bookings.stats.cancelled}</p>
+                            </div>
+                            }
                         <Divider orientation="left">Date Wieghtage</Divider>
                         <p><strong>High</strong> - 5</p>
                         <p><strong>Medium</strong> - 15</p>

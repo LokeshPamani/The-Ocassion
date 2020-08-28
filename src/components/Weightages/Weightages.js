@@ -5,7 +5,8 @@ import { Progress, Button } from 'antd';
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { Select, Tooltip } from 'antd';
 import { WarningFilled} from '@ant-design/icons';
-import {error} from '../NotificationMessage/NotificationMessage'
+import {error, success} from '../NotificationMessage/NotificationMessage'
+import {assignWeightage} from '../../APIS/WeightageAPI/WeightageAPI'
 
 const { Option } = Select;
 const { RangePicker } = DatePicker;
@@ -22,6 +23,10 @@ class Weightages extends Component {
             errorMessage : '',
             loadingButton : false
         }
+    }
+
+     refreshPage=()=>{ 
+        window.location.reload(); 
     }
 
     increase = () => {
@@ -67,7 +72,7 @@ class Weightages extends Component {
                 error:true,
                 errorMessage : 'one of the datepicker is required to fill'
             })
-            return;
+            return false;
         }
 
         if( this.state.percent <=0)
@@ -77,7 +82,7 @@ class Weightages extends Component {
                 error:true,
                 errorMessage : 'percentage is required'
             })
-            return;
+            return false;
         }
 
         if(this.state.type === null)
@@ -87,19 +92,36 @@ class Weightages extends Component {
                 error:true,
                 errorMessage : 'Choose type'
             })
-            return;
+            return false;
         }
+
+        return true
     }
 
     onClickButton=()=>{
         this.setState({
             error : false
         })
-        this.verfication();
-        if(!this.state.error)
+        const check = this.verfication();
+        if(check)
         {
             this.setState({
                 loadingButton : true
+            })
+            const data={
+                rangepicker : this.state.rangepicker,
+                datepicker : this.state.datepicker,
+                percent : this.state.percent,
+                type :  this.state.type
+            }
+            assignWeightage(data).then((res) =>{
+                success("Weightage assign successfully!!!!")
+                //setTimeout(this.refreshPage,5000)
+                
+            }).catch(error=>{
+                error(error.response.data)
+            }).finally(()=>{
+                this.setState({loadingButton : false})
             })
         }
     }
