@@ -118,8 +118,9 @@ class Weightages extends Component {
                 success("Weightage assign successfully!!!!")
                 //setTimeout(this.refreshPage,5000)
                 
-            }).catch(error=>{
-                error(error.response.data)
+            }).catch(err=>{
+                console.log(err.response.data)
+                error(err.response.data)
             }).finally(()=>{
                 this.setState({loadingButton : false})
             })

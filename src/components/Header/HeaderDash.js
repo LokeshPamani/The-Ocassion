@@ -70,12 +70,13 @@ const content = (
           <Header className="header" >
               <Title className='title-header' style={{color:"white",padding:'15px',float:"left"}} level={3}>The Occasion</Title>
               <div style={{float:"right"}}>
-              <Title className='title-header' style={{color:"white",padding:'15px',float:"left"}} level={3}>Venue name</Title>
+                <div style={{textAlign:'center'}}>             
+                 <Title className='title-header' style={{color:"white",padding:'15px',float:"left"}} level={3}>Venue name</Title>
               {/* <BellOutlined style={{display: "inline-block",margin:"auto"}}/> */}
               <Popover placement="bottom" title={"Notifications"} content={"content"} trigger="click">
               <span style={{marginRight:"20px"}}>
-              <Badge dot>
-                <BellFilled style={{display: "inline-block",fontSize:"1.5rem",color:"white"}}/>
+              <Badge dot style={{marginTop:'1.0px'}}>
+                <BellFilled style={{fontSize:"1.5rem",color:"white", margin:'auto',marginTop:'1.0px' }}/>
               </Badge>
             </span>
               </Popover>
@@ -84,6 +85,8 @@ const content = (
               <Popover placement="bottomRight" title={text} content={content} trigger="click">
                 <Avatar style={{float:'right',float:"right",marginTop:"1.0rem"}} size={32} icon={<UserOutlined />} onClick={()=>console.log('click')}/>
               </Popover>
+              </div>
+
               {/* <Avatar style={{float:'right',float:"right",marginTop:"1.0rem"}} size={32} icon={<UserOutlined />} onClick={()=>console.log('click')}/> */}
               </div>
           </Header>
