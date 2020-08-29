@@ -1,6 +1,6 @@
-import {getCall,postCall,putCall} from '../APICalls'
+import {putCall} from '../APICalls'
 
 
 export const assignWeightage=data=>{
-   return  postCall('api/weight',data)
+   return  putCall('api/weight',data)
 }
