@@ -17,6 +17,7 @@ import {
 
 import Home from '../Home';
 import Weightage from '../Weightages'
+import AddUser from '../AddUser'
 
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
@@ -107,7 +108,10 @@ const content = (
                     <span>Weightage</span>
                     <Link to="/weightage" />
                   </Menu.Item>
-                  <Menu.Item key="3">option3</Menu.Item>
+                  <Menu.Item key="3">
+                    <span>Add User</span>
+                    <Link to="/adduser" />
+                  </Menu.Item>
                   <Menu.Item key="4">option4</Menu.Item>
                 
                 <SubMenu key="sub2" icon={<LaptopOutlined />} title="subnav 2">
@@ -149,6 +153,7 @@ const content = (
               <Route path="/home" component={Home} />
               <Route path="/" exact  component={Home} />
               <Route path="/weightage" component={Weightage} />
+              <Route path ="/adduser" component={AddUser} />
               </Switch>
               {/* <Home /> */}
               

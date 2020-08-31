@@ -129,7 +129,7 @@ class CustomCalendar extends Component {
               onMouseLeave={()=>this.handleMouseHover('')}
           >
             {
-              new String(this.state.isHovering).valueOf() === new String(value._d).valueOf() &&<Progress className='weightage' type="circle" percent={100} width={70} format={(percent) => `${percent}%Rise`} />
+              new String(this.state.isHovering).valueOf() === new String(value._d).valueOf() &&<Progress className='weightage' type="circle" percent={listData.weightage} width={70} format={(percent) => `${percent}%Rise`} />
             }
             </ div> 
           </ React.Fragment>
