@@ -1,12 +1,26 @@
-.adduseremain{
-    padding:15px;
+.adduseragemain{
+    padding: 15px ;
     height: 100%;
 }
 
 .adduserdiv{
     background:white;
-    height: 100%;
-    text-align: center;
-    padding-top: 10%;
+    text-align: center;  
+}
+
+.addusertitle{
+    width: 100%;
+    float: left;
+    padding:15px;
+    text-align: left;
+}
+
+#newuserbutton{
     
+    float: left;
+    margin-left:10px;
+}
+
+.usertable{
+    padding: 10px;
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Input, InputNumber, Popconfirm, Form } from 'antd';
+import { Table, Input, InputNumber, Popconfirm, Form,Button } from 'antd';
 
 const originData = [];
 
@@ -153,8 +153,18 @@ export const EditableTable = () => {
     };
   });
   return (
-    <Form form={form} component={false}>
+      <>
+      <Button 
+          type="primary"
+          id='newuserbutton' 
+        >
+          Add New User
+        </Button>
+
+    <Form form={form} component={false} >
+        
       <Table
+        className='usertable'
         components={{
           body: {
             cell: EditableCell,
@@ -164,11 +174,13 @@ export const EditableTable = () => {
         dataSource={data}
         columns={mergedColumns}
         rowClassName="editable-row"
+        
         pagination={{
           onChange: cancel,
         }}
       />
     </Form>
+    </>
   );
 };
 
