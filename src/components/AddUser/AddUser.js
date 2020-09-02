@@ -9,11 +9,9 @@ class AddUser extends Component {
         return (
             <div className='adduseragemain' >
                 <div className='adduserdiv'>
-                <div className='titlediv'>
                 <Typography className='addusertitle'>
                     <Title level={1} className='addusertitle'>Add User</Title> 
                 </Typography>
-                </div>
                 {/* <Divider style={{font : '800px'}} orientation="left">Add User</Divider> */}
                 <EditableTable className='usertable' />   
                 </div>

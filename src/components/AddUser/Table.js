@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Table, Input, InputNumber, Popconfirm, Form,Button } from 'antd';
+import NewUserModel from './NewUserModel';
 
 const originData = [];
 
@@ -51,8 +52,17 @@ export const EditableTable = () => {
   const [form] = Form.useForm();
   const [data, setData] = useState(originData);
   const [editingKey, setEditingKey] = useState('');
-
+  const [showModel, setShowModel] = useState(false)
   const isEditing = record => record.key === editingKey;
+
+
+  const showModelAddUser=()=>{
+      setShowModel(true)
+  }
+
+  const onClose=()=>{
+      setShowModel(false)
+  }
 
   const edit = record => {
     form.setFieldsValue({
@@ -155,8 +165,10 @@ export const EditableTable = () => {
   return (
       <>
       <Button 
+          onClick={showModelAddUser}
           type="primary"
-          id='newuserbutton' 
+         
+          
         >
           Add New User
         </Button>
@@ -180,6 +192,7 @@ export const EditableTable = () => {
         }}
       />
     </Form>
+    <NewUserModel showModel={showModel} onClose={onClose}/>
     </>
   );
 };

@@ -11,7 +11,8 @@
 .addusertitle{
     width: 100%;
     float: left;
-    padding:15px;
+    padding-left:10px;
+    padding-top: 10px;
     text-align: left;
 }
 
@@ -24,3 +25,7 @@
 .usertable{
     padding: 10px;
 }
+
+.collection-create-form_last-form-item {
+    margin-bottom: 0;
+  }
