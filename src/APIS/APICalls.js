@@ -40,4 +40,10 @@ export const postCall = (url,data) => (
     // }).then(res=>res.json())
     axios.put( BASEURL+url,JSON.stringify(data),options)
   );
+
+  export const deleteCall =(url)=>(
+    axios.delete( BASEURL+url)
+  )
+
+  
   

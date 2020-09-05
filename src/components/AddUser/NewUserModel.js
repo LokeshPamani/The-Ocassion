@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Modal, Form, Input, Radio } from 'antd';
+import { Button, Modal, Form, Input, Radio, InputNumber } from 'antd';
 
 const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
     const [form] = Form.useForm();
@@ -31,26 +31,52 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
           }}
         >
           <Form.Item
-            name="title"
-            label="Title"
+            name="user_name"
+            label="User Name"
             rules={[
               {
                 required: true,
-                message: 'Please input the title of collection!',
+                message: 'Please input the name of user !',
               },
             ]}
           >
             <Input />
           </Form.Item>
-          <Form.Item name="description" label="Description">
-            <Input type="textarea" />
+          <Form.Item name="mobile_no" label="Mobile No."
+           rules={[
+            {
+              required: true,
+              message: 'Please input your Mobile no.!',
+            },
+            ]}
+          >
+            <Input />
           </Form.Item>
-          <Form.Item name="modifier" className="collection-create-form_last-form-item">
-            <Radio.Group>
-              <Radio value="public">Public</Radio>
-              <Radio value="private">Private</Radio>
-            </Radio.Group>
-          </Form.Item>
+        <Form.Item
+        label="Username"
+        name="username"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your username!',
+          },
+        ]}
+        >
+            <Input />
+        </Form.Item>
+
+        <Form.Item
+        label="Password"
+        name="password"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your password!',
+          },
+        ]}
+        >
+         <Input.Password />
+        </Form.Item>
         </Form>
       </Modal>
     );
