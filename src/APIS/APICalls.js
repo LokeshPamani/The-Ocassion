@@ -26,6 +26,7 @@ export const postCall = (url, data) =>
   // }).then(res=>res.json())
   axios.post(BASEURL + url, JSON.stringify(data), options);
 
+<<<<<<< HEAD
 export const putCall = (url, data) =>
   // fetch(BASEURL+url, {
   //   method: "POST",
@@ -36,3 +37,35 @@ export const putCall = (url, data) =>
   //   }
   // }).then(res=>res.json())
   axios.put(BASEURL + url, JSON.stringify(data), options);
+=======
+export const postCall = (url,data) => (
+    // fetch(BASEURL+url, {
+    //   method: "POST",
+    //   body: JSON.stringify(data),
+    //   credentials: 'include',
+    //   headers: {
+    //     "Content-Type": "application/json"
+    //   }
+    // }).then(res=>res.json())
+    axios.post( BASEURL+url,JSON.stringify(data),options)
+  );
+
+  export const putCall = (url,data) => (
+    // fetch(BASEURL+url, {
+    //   method: "POST",
+    //   body: JSON.stringify(data),
+    //   credentials: 'include',
+    //   headers: {
+    //     "Content-Type": "application/json"
+    //   }
+    // }).then(res=>res.json())
+    axios.put( BASEURL+url,JSON.stringify(data),options)
+  );
+
+  export const deleteCall =(url)=>(
+    axios.delete( BASEURL+url)
+  )
+
+  
+  
+>>>>>>> aaebb06d578fb08e623135d9beaeb46485a3e035

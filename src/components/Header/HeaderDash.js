@@ -4,7 +4,6 @@ import './headerdash.css';
 import { Layout, Menu,Typography,Badge,Popover ,Avatar   } from 'antd';
 import { UserOutlined, LaptopOutlined, NotificationOutlined ,BellFilled ,HomeOutlined, LogoutOutlined , SettingOutlined } from '@ant-design/icons';
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
   Link
@@ -84,7 +83,7 @@ const content = (
              
               {/* <BellFilled style={{display: "inline-block",marginRight:"20px",fontSize:"1.5rem",color:"white"}}/> */}
               <Popover placement="bottomRight" title={text} content={content} trigger="click">
-                <Avatar style={{float:'right',float:"right",marginTop:"1.0rem"}} size={32} icon={<UserOutlined />} onClick={()=>console.log('click')}/>
+                <Avatar style={{float:'right',marginTop:"1.0rem"}} size={32} icon={<UserOutlined />} onClick={()=>console.log('click')}/>
               </Popover>
               </div>
 

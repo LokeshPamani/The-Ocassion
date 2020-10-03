@@ -2,14 +2,10 @@ import React from 'react';
 import './App.css';
 import {
   BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
+  Switch
 } from 'react-router-dom'
 import Login from './components/Login/Login'
 import Signup from './components/Signup'
-import Welcome from './components/welcome'
-import Dashboard from './components/Dashboard'
 import HeaderDash from './components/Header/HeaderDash';
 import { AuthRoute, ProtectedRoute } from "./util/route";
 

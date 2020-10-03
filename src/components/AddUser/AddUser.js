@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {EditableTable} from './Table'
+import EditableTable from './Table'
 import { Row, Col, Divider, Typography } from 'antd';
 const { Title, Paragraph, Text } = Typography;
 

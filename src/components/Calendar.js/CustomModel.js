@@ -228,10 +228,10 @@ const CollectionsPage = (props) => {
           phone: res.data.phoneNo,
           Occasion: res.data.ocassion,
           Booking_date : props.date,
-          paid:'',
-          Due:'',
-          Booking_type:'',
-          Comments:''
+          paid: res.data.paid,
+          Due: res.data.due,
+          Booking_type:'paid',
+          Comments: res.data.comments
         });
         setModelload(false)
       }

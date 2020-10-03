@@ -1,17 +1,29 @@
-import React, { useState } from 'react';
-import { Table, Input, InputNumber, Popconfirm, Form,Button } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Table, Input, Select, Popconfirm, Form,Button } from 'antd';
 import NewUserModel from './NewUserModel';
+import {fetchUsers} from '../../Redux/actions/Users'
+import {connect} from 'react-redux'
+import {deleteUser,newUser, updateUser} from '../../APIS/UsersAPI/UsersAPI'
+import { postCall } from '../../APIS/APICalls';
+
+
+const { Option } = Select
+const mapStateToProps=({usersReducer})=>{
+   return{
+     users:usersReducer
+   }
+ }
+ 
+ const mapDispatchToProps = dispatch =>{
+   return{
+     fetchUsers : ()=> dispatch(fetchUsers())
+   }
+ }
+ 
 
 const originData = [];
 
-for (let i = 0; i < 100; i++) {
-  originData.push({
-    key: i.toString(),
-    name: `Edrward ${i}`,
-    age: 32,
-    address: `London Park no. ${i}`,
-  });
-}
+
 
 const EditableCell = ({
   editing,
@@ -23,7 +35,11 @@ const EditableCell = ({
   children,
   ...restProps
 }) => {
-  const inputNode = inputType === 'number' ? <InputNumber /> : <Input />;
+  const inputNode = inputType === 'select' ? <Select   >
+                                              <Option value="user">User</Option>
+                                              <Option value="admin">Admin</Option>
+                                              </Select> 
+  : <Input />;
   return (
     <td {...restProps}>
       {editing ? (
@@ -48,12 +64,15 @@ const EditableCell = ({
   );
 };
 
-export const EditableTable = () => {
+ const EditableTable = ({fetchUsers, users}) => {
   const [form] = Form.useForm();
-  const [data, setData] = useState(originData);
+  const [data, setData] = useState(users.users);
   const [editingKey, setEditingKey] = useState('');
   const [showModel, setShowModel] = useState(false)
   const isEditing = record => record.key === editingKey;
+  useEffect(()=>{
+    fetchUsers()
+  },[])
 
 
   const showModelAddUser=()=>{
@@ -67,32 +86,39 @@ export const EditableTable = () => {
   const edit = record => {
     form.setFieldsValue({
       name: '',
-      age: '',
-      address: '',
+      email: '',
+      phoneNo: '',
+      role:'',
       ...record,
     });
     setEditingKey(record.key);
   };
 
+  const deleteRecord = record =>{
+    deleteUser(record.id)
+  }
+
   const cancel = () => {
     setEditingKey('');
   };
 
-  const save = async key => {
+  const save = async( key,userData) => {
     try {
-      const row = await form.validateFields();
-      const newData = [...data];
-      const index = newData.findIndex(item => key === item.key);
 
+      const row = await form.validateFields();
+      const newData = [...users.users];
+      const index = newData.findIndex(item => key === item.key);
       if (index > -1) {
         const item = newData[index];
         newData.splice(index, 1, { ...item, ...row });
         setData(newData);
         setEditingKey('');
+        console.log(newData,'daa is there')
       } else {
-        newData.push(row);
-        setData(newData);
-        setEditingKey('');
+        // newData.push(row);
+        // setData(newData);
+       return  newUser(userData)
+        
       }
     } catch (errInfo) {
       console.log('Validate Failed:', errInfo);
@@ -101,32 +127,39 @@ export const EditableTable = () => {
 
   const columns = [
     {
-      title: 'name',
+      title: 'Name',
       dataIndex: 'name',
-      width: '25%',
-      editable: true,
-    },
-    {
-      title: 'age',
-      dataIndex: 'age',
       width: '15%',
       editable: true,
     },
     {
-      title: 'address',
-      dataIndex: 'address',
-      width: '40%',
+      title: 'Email',
+      dataIndex: 'email',
+      width: '15%',
+      editable: true,
+    },
+    {
+      title: 'PhoneNo',
+      dataIndex: 'phoneNo',
+      width: '15%',
+      editable: true,
+    },
+    {
+      title: 'Role',
+      dataIndex: 'role',
+      width: '15%',
       editable: true,
     },
     {
       title: 'operation',
       dataIndex: 'operation',
       render: (_, record) => {
+        
         const editable = isEditing(record);
         return editable ? (
           <span>
             <a
-              href="javascript:;"
+              
               onClick={() => save(record.key)}
               style={{
                 marginRight: 8,
@@ -139,9 +172,21 @@ export const EditableTable = () => {
             </Popconfirm>
           </span>
         ) : (
-          <a disabled={editingKey !== ''} onClick={() => edit(record)}>
+        <>
+          <a disabled={editingKey !== '' } onClick={() => edit(record)}  style={{
+                marginRight: 15,
+              }}>
             Edit
           </a>
+          <a disabled={editingKey !== '' || !record.isDelete } onClick={() => deleteRecord(record)}  style={{
+                marginRight: 15,
+              }}>
+          Delete
+        </a>
+        <a  onClick={() => edit(record)}>
+          ChangePassword
+        </a>
+        </>
         );
       },
     },
@@ -151,11 +196,12 @@ export const EditableTable = () => {
       return col;
     }
 
+    
     return {
       ...col,
       onCell: record => ({
         record,
-        inputType: col.dataIndex === 'age' ? 'number' : 'text',
+        inputType: col.dataIndex === 'role' ? 'select' : 'text',
         dataIndex: col.dataIndex,
         title: col.title,
         editing: isEditing(record),
@@ -166,9 +212,7 @@ export const EditableTable = () => {
       <>
       <Button 
           onClick={showModelAddUser}
-          type="primary"
-         
-          
+          type="primary"    
         >
           Add New User
         </Button>
@@ -183,7 +227,8 @@ export const EditableTable = () => {
           },
         }}
         bordered
-        dataSource={data}
+        loading={users.loading}
+        dataSource={users.users}
         columns={mergedColumns}
         rowClassName="editable-row"
         
@@ -192,10 +237,10 @@ export const EditableTable = () => {
         }}
       />
     </Form>
-    <NewUserModel showModel={showModel} onClose={onClose}/>
+    <NewUserModel showModel={showModel} onClose={onClose} save={save}/>
     </>
   );
 };
 
 // ReactDOM.render(<EditableTable />, mountNode);
-//export default EditableTable
+export default connect(mapStateToProps, mapDispatchToProps) (EditableTable)
