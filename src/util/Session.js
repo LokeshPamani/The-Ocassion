@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASEURL = "http://13.127.121.92:5001";
+const BASEURL = "http://localhost:5001";
 const options = {
   headers: {
     "Content-Type": "application/json",
