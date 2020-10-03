@@ -22,8 +22,8 @@ export const login = user => async dispatch => {
       
     }
   }).catch(err=>{
-    console.log('error comes',err.response.data)
-    return dispatch(receiveErrors(err.response.data));
+    console.log('error comes',err.response);
+    return dispatch(receiveErrors({message : 'LOGIN_ERROR'}));  //TODO i have to cange this text by a predefined message coming from server
   })
   // let data,response;
   // try{

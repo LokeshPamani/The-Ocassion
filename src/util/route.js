@@ -2,16 +2,19 @@ import React from "react";
 import { connect } from "react-redux";
 import { Redirect, Route, withRouter } from "react-router-dom";
 
-const mapStateToProps = ({ session: { userId} }) => ({
-  loggedIn: Boolean(userId)
-});
+const mapStateToProps = ({ session: { userId} , errors }) => ({
+  loggedIn: Boolean(userId),
+  loginError : (errors === 'LOGIN_ERROR')
+ });
 
-const Auth = ({ loggedIn, path, component: Component }) => (
+const Auth = ({ loggedIn, path, component: Component ,loginError }) => (
     <Route
       path={path}
       render={props => (
         loggedIn ?
         <Redirect to='/home' /> :
+        loginError?
+          <Redirect to='/autherror' /> :
         <Component {...props} />
       )}
     />
