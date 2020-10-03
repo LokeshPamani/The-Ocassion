@@ -3,7 +3,8 @@ import { Table, Input, Select, Popconfirm, Form,Button } from 'antd';
 import NewUserModel from './NewUserModel';
 import {fetchUsers} from '../../Redux/actions/Users'
 import {connect} from 'react-redux'
-import {deleteUser} from '../../APIS/UsersAPI/UsersAPI'
+import {deleteUser,newUser, updateUser} from '../../APIS/UsersAPI/UsersAPI'
+import { postCall } from '../../APIS/APICalls';
 
 
 const { Option } = Select
@@ -101,16 +102,12 @@ const EditableCell = ({
     setEditingKey('');
   };
 
-  const save = async( key,action) => {
+  const save = async( key,userData) => {
     try {
 
       const row = await form.validateFields();
-      console.log('row',row)
       const newData = [...users.users];
-      console.log('new data',newData,'key is',key)
-
       const index = newData.findIndex(item => key === item.key);
-      console.log('index is', index)
       if (index > -1) {
         const item = newData[index];
         newData.splice(index, 1, { ...item, ...row });
@@ -118,9 +115,10 @@ const EditableCell = ({
         setEditingKey('');
         console.log(newData,'daa is there')
       } else {
-        newData.push(row);
-        setData(newData);
-        setEditingKey('');
+        // newData.push(row);
+        // setData(newData);
+       return  newUser(userData)
+        
       }
     } catch (errInfo) {
       console.log('Validate Failed:', errInfo);
@@ -239,7 +237,7 @@ const EditableCell = ({
         }}
       />
     </Form>
-    <NewUserModel showModel={showModel} onClose={onClose}/>
+    <NewUserModel showModel={showModel} onClose={onClose} save={save}/>
     </>
   );
 };

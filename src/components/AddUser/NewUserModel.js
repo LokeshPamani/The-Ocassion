@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Modal, Form, Input, Radio, InputNumber } from 'antd';
+import { success, error } from '../NotificationMessage/NotificationMessage';
 
 const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
     const [form] = Form.useForm();
@@ -32,7 +33,7 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
         >
           <Form.Item
             name="user_name"
-            label="User Name"
+            label="Name"
             rules={[
               {
                 required: true,
@@ -53,8 +54,8 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
             <Input />
           </Form.Item>
         <Form.Item
-        label="Username"
-        name="username"
+        label="Email"
+        name="email"
         rules={[
           {
             required: true,
@@ -100,6 +101,12 @@ class NewUserModel extends Component {
 
     onCreate = values => {
         console.log('Received values of form: ', values);
+        this.props.save(null,values).then(res=>{
+          success('New User Created!!!')
+        }).catch(err=>{
+          // error(err.response.data)
+          console.log(err.response)
+        })
         this.setVisible(false);
       };
     

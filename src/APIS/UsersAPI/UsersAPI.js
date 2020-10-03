@@ -1,4 +1,4 @@
-import {putCall , getCall, deleteCall} from '../APICalls'
+import {putCall, postCall, getCall, deleteCall} from '../APICalls'
 
 
 
@@ -8,4 +8,12 @@ export const getAllUsers=()=>{
 
 export const deleteUser = (id)=>{
     return deleteCall(`api/users/${id}`)
+}
+
+export const newUser=(data)=>{
+    return postCall(`api/users`,data)
+}
+
+export const updateUser=(data)=>{
+    return putCall(`/api/users`,data)
 }
