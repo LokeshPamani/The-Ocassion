@@ -103,12 +103,15 @@ class NewUserModel extends Component {
         console.log('Received values of form: ', values);
         values.role = 'manager'
         this.props.save(null,values).then(res=>{
+          this.props.onClose();
           success('New User Created!!!')
+          this.props.refresh()
         }).catch(err=>{
           // error(err.response.data)
           console.log(err.response)
         })
         this.setVisible(false);
+        
       };
     
     render() {

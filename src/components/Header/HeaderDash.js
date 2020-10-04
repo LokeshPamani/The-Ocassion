@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import 'antd/dist/antd.css';
 import './headerdash.css';
 import { Layout, Menu,Typography,Badge,Popover ,Avatar   } from 'antd';
-import { UserOutlined, LaptopOutlined, NotificationOutlined ,BellFilled ,HomeOutlined, LogoutOutlined , SettingOutlined } from '@ant-design/icons';
+import { UserOutlined, UserAddOutlined, PlusOutlined, NotificationOutlined ,BellFilled ,HomeOutlined, LogoutOutlined , SettingOutlined } from '@ant-design/icons';
 import {
   Switch,
   Route,
@@ -112,15 +112,15 @@ const content = (
                     <span>Home</span>
                     <Link to="/home" />
                   </Menu.Item>
-                  <Menu.Item key="2">
+                  <Menu.Item key="2" icon={<PlusOutlined />}>
                     <span>Weightage</span>
                     <Link to="/weightage" />
                   </Menu.Item>
-                  <Menu.Item key="3">
+                  <Menu.Item key="3" icon={<UserAddOutlined/>}>
                     <span>Add User</span>
                     <Link to="/adduser" />
                   </Menu.Item>
-                  <Menu.Item key="4">option4</Menu.Item>
+                  {/* <Menu.Item key="4">option4</Menu.Item>
                 
                 <SubMenu key="sub2" icon={<LaptopOutlined />} title="subnav 2">
                   <Menu.Item key="5">option5</Menu.Item>
@@ -133,7 +133,7 @@ const content = (
                   <Menu.Item key="10">option10</Menu.Item>
                   <Menu.Item key="11">option11</Menu.Item>
                   <Menu.Item key="12">option12</Menu.Item>
-                </SubMenu>
+                </SubMenu> */}
               </Menu>
             </Sider>
              {/* <Layout style={{ padding: '24px 24px 24px' }}>  */}

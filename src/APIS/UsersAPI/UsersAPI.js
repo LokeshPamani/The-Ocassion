@@ -15,5 +15,5 @@ export const newUser=(data)=>{
 }
 
 export const updateUser=(id,data)=>{
-    return putCall(`/api/users/${id}`,data)
+    return putCall(`api/users/${id}`,data)
 }

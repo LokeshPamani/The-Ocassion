@@ -84,6 +84,7 @@ const EditableCell = ({
   }
 
   const edit = record => {
+    console.log(record)
     form.setFieldsValue({
       name: '',
       email: '',
@@ -115,6 +116,9 @@ const EditableCell = ({
         newData.splice(index, 1, { ...item, ...row });
         setData(newData);
         setEditingKey('');
+       
+        updateUser(key,newData[index])
+        fetchUsers();
         console.log(newData,'daa is there')
       } else {
         // newData.push(row);
@@ -239,7 +243,7 @@ const EditableCell = ({
         }}
       />
     </Form>
-    <NewUserModel showModel={showModel} onClose={onClose} save={save}/>
+    <NewUserModel showModel={showModel} onClose={onClose} save={save} refresh={fetchUsers}/>
     </>
   );
 };
