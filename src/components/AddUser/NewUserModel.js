@@ -32,7 +32,7 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
           }}
         >
           <Form.Item
-            name="user_name"
+            name="name"
             label="Name"
             rules={[
               {
@@ -43,7 +43,7 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
           >
             <Input />
           </Form.Item>
-          <Form.Item name="mobile_no" label="Mobile No."
+          <Form.Item name="phoneNo" label="Mobile No."
            rules={[
             {
               required: true,
@@ -101,6 +101,7 @@ class NewUserModel extends Component {
 
     onCreate = values => {
         console.log('Received values of form: ', values);
+        values.role = 'manager'
         this.props.save(null,values).then(res=>{
           success('New User Created!!!')
         }).catch(err=>{
