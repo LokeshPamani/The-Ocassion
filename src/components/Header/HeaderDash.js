@@ -8,6 +8,7 @@ import {
   Route,
   Link
 } from 'react-router-dom'
+import { connect } from "react-redux";
 // import Login from '../Login/Login'
 // import Signup from '../Signup'
 // import Welcome from '../welcome'
@@ -17,10 +18,17 @@ import {
 import Home from '../Home';
 import Weightage from '../Weightages'
 import AddUser from '../AddUser'
-
+import { logout} from "../../Redux/actions/Session";
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 const { Title } = Typography;
+
+const mapDispatchToProps = dispatch => ({
+  logout: user => {dispatch(logout(user))
+    window.location.reload(true);}
+});
+
+
 class HeaderDash extends Component {
   
   render() {
@@ -33,11 +41,12 @@ const content = (
   
     <Menu.Item key="1" icon={<SettingOutlined />}>
       <span>Settings</span>
-      <Link to="/home" />
+      <Link to="/login" />
     </Menu.Item>
-    <Menu.Item key="2" icon={<LogoutOutlined />}>
+    <Menu.Item key="2" icon={<LogoutOutlined />}  >
       <span>Logout</span>
-      <Link to="/weightage" />
+      
+      <Link to="/login"  onClick={this.props.logout}/>
     </Menu.Item>
     {/* <Menu.Item key="3">option3</Menu.Item>
     <Menu.Item key="4">option4</Menu.Item>
@@ -165,4 +174,9 @@ const content = (
   }
 }
 
-export default HeaderDash
+export default connect(
+  null,
+  mapDispatchToProps
+)(HeaderDash);
+
+// export default HeaderDash

@@ -11,9 +11,9 @@ export const deleteUser = (id)=>{
 }
 
 export const newUser=(data)=>{
-    return postCall(`api/users`,data)
+    return postCall(`api/users/adduser`,data)
 }
 
-export const updateUser=(data)=>{
-    return putCall(`/api/users`,data)
+export const updateUser=(id,data)=>{
+    return putCall(`/api/users/${id}`,data)
 }

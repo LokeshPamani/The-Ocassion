@@ -95,7 +95,9 @@ const EditableCell = ({
   };
 
   const deleteRecord = record =>{
-    deleteUser(record.id)
+
+    deleteUser(record.key)
+    fetchUsers()
   }
 
   const cancel = () => {
